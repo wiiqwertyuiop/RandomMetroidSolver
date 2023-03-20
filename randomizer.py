@@ -1,11 +1,6 @@
 #!/usr/bin/python3
 
-import argparse
-import os.path
-import json
-import sys
-import shutil
-import random
+import argparse, os.path, json, sys, shutil, random
 
 from rando.RandoSettings import RandoSettings, GraphSettings
 from rando.RandoExec import RandoExec
@@ -39,7 +34,6 @@ areaRandomizations = defaultMultiValues['areaRandomization']
 startLocations = defaultMultiValues['startLocation']
 logics = defaultMultiValues['logic']
 
-
 def randomMulti(args, param, defaultMultiValues):
     value = args[param]
 
@@ -49,27 +43,22 @@ def randomMulti(args, param, defaultMultiValues):
         choices = defaultMultiValues
         if args[param+"List"] is not None:
             # use provided list
-            choices = [choice for choice in args[param +
-                                                 "List"].split(',') if choice in defaultMultiValues]
+            choices = [choice for choice in args[param+"List"].split(',') if choice in defaultMultiValues]
         value = random.choice(choices)
 
     return (isRandom, value)
 
-
 def dumpErrorMsgs(outFileName, msgs):
     dumpErrorMsg(outFileName, joinErrorMsgs(msgs))
-
 
 def joinErrorMsgs(msgs):
     return '\n'.join(msgs)
 
-
 def restricted_float(x):
     x = float(x)
     if x < 0.0 or x > 9.0:
-        raise argparse.ArgumentTypeError("%r not in range [1.0, 9.0]" % (x,))
+        raise argparse.ArgumentTypeError("%r not in range [1.0, 9.0]"%(x,))
     return x
-
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Random Metroid Randomizer")
@@ -80,7 +69,7 @@ if __name__ == "__main__":
                         dest='directory', nargs='?', default='.')
     parser.add_argument('--dot',
                         help="generate dot file with area graph",
-                        action='store_true', dest='dot', default=False)
+                        action='store_true',dest='dot', default=False)
     parser.add_argument('--areaRandomization', help="area mode",
                         dest='areaRandomization', nargs='?', const=True, choices=["random"]+areaRandomizations, default='off')
     parser.add_argument('--areaRandomizationList', help="list to choose from when random",
@@ -100,7 +89,7 @@ if __name__ == "__main__":
                         dest='enemy', nargs='?', const=True, default=False)
     parser.add_argument('--minimizer', help="minimizer mode: area and boss mixed together. arg is number of non boss locations",
                         dest='minimizerN', nargs='?', const=35, default=None,
-                        choices=[str(i) for i in range(30, 101)]+["random"])
+                        choices=[str(i) for i in range(30,101)]+["random"])
     parser.add_argument('--startLocation', help="Name of the Access Point to start from",
                         dest='startLocation', nargs='?', default="Landing Site",
                         choices=['random'] + startLocations)
@@ -150,7 +139,7 @@ if __name__ == "__main__":
     parser.add_argument('--minorQty', '-n',
                         help="quantity of minors",
                         dest='minorQty', nargs='?', default=100,
-                        choices=[str(i) for i in range(0, 101)])
+                        choices=[str(i) for i in range(0,101)])
     parser.add_argument('--energyQty', '-g',
                         help="quantity of ETanks/Reserve Tanks",
                         dest='energyQty', nargs='?', default='vanilla',
@@ -168,7 +157,7 @@ if __name__ == "__main__":
     parser.add_argument('--scavNumLocs',
                         help="For Scavenger split, number of major locations in the mandatory route",
                         dest='scavNumLocs', nargs='?', default=10,
-                        choices=["0"]+[str(i) for i in range(4, 18)])
+                        choices=["0"]+[str(i) for i in range(4,18)])
     parser.add_argument('--scavRandomized',
                         help="For Scavenger split, decide whether mandatory major locs will have non-vanilla items",
                         dest='scavRandomized', nargs='?', const=True, default=False)
@@ -184,8 +173,7 @@ if __name__ == "__main__":
     parser.add_argument('--hideItems', help="Like in dessy's rando hide half of the items",
                         dest="hideItems", nargs='?', const=True, default=False)
     parser.add_argument('--progressionSpeed', '-i',
-                        help="progression speed, from " +
-                        str(speeds) + ". 'random' picks a random speed from these. Pick a random speed from a subset using comma-separated values, like 'slow,medium,fast'.",
+                        help="progression speed, from " + str(speeds) + ". 'random' picks a random speed from these. Pick a random speed from a subset using comma-separated values, like 'slow,medium,fast'.",
                         dest='progressionSpeed', nargs='?', default='medium', choices=speeds+['random'])
     parser.add_argument('--progressionSpeedList', help="list to choose from when random",
                         dest='progressionSpeedList', nargs='?', default=None)
@@ -227,24 +215,18 @@ if __name__ == "__main__":
                         dest='runtimeLimit_s', nargs='?', default=30, type=int)
     parser.add_argument('--race', help="Race mode magic number", dest='raceMagic',
                         type=int)
-    parser.add_argument('--vcr', help="Generate VCR output file",
-                        dest='vcr', action='store_true')
-    parser.add_argument('--ext_stats', help="dump extended stats SQL",
-                        nargs='?', default=None, dest='extStatsFilename')
-    parser.add_argument('--randoPreset', help="rando preset file",
-                        dest="randoPreset", nargs='?', default=None)
-    parser.add_argument('--fakeRandoPreset', help="for prog speed stats",
-                        dest="fakeRandoPreset", nargs='?', default=None)
+    parser.add_argument('--vcr', help="Generate VCR output file", dest='vcr', action='store_true')
+    parser.add_argument('--ext_stats', help="dump extended stats SQL", nargs='?', default=None, dest='extStatsFilename')
+    parser.add_argument('--randoPreset', help="rando preset file", dest="randoPreset", nargs='?', default=None)
+    parser.add_argument('--fakeRandoPreset', help="for prog speed stats", dest="fakeRandoPreset", nargs='?', default=None)
     parser.add_argument('--plandoRando', help="json string with already placed items/locs", dest="plandoRando",
                         nargs='?', default=None)
-    parser.add_argument('--jm,', help="display data used by jm for its stats",
-                        dest='jm', action='store_true', default=False)
+    parser.add_argument('--jm,', help="display data used by jm for its stats", dest='jm', action='store_true', default=False)
     parser.add_argument('--doorsColorsRando', help='randomize color of colored doors', dest='doorsColorsRando',
                         nargs='?', const=True, default=False)
     parser.add_argument('--allowGreyDoors', help='add grey color in doors colors pool', dest='allowGreyDoors',
                         nargs='?', const=True, default=False)
-    parser.add_argument('--logic', help='logic to use', dest='logic',
-                        nargs='?', const=True, default="vanilla", choices=logics+['random'])
+    parser.add_argument('--logic', help='logic to use', dest='logic', nargs='?', const=True, default="vanilla", choices=logics+['random'])
     parser.add_argument('--logicList', help="list to choose from when randomizing logic",
                         dest='logicList', nargs='?', default=None)
     parser.add_argument('--hud', help='Enable VARIA hud', dest='hud',
@@ -283,8 +265,7 @@ if __name__ == "__main__":
     # service to force an argument value and notify it
     argDict = vars(args)
     forcedArgs = {}
-    optErrMsgs = []
-
+    optErrMsgs = [ ]
     def forceArg(arg, value, msg, altValue=None, webArg=None, webValue=None):
         okValues = [value]
         if altValue is not None:
@@ -301,8 +282,7 @@ if __name__ == "__main__":
         preset = loadRandoPreset(args.randoPreset, args)
         # use the skill preset from the rando preset
         if preset is not None and args.paramsFileName is None:
-            args.paramsFileName = '{}/{}/{}.json'.format(
-                appDir, getPresetDir(preset), preset)
+            args.paramsFileName = '{}/{}/{}.json'.format(appDir, getPresetDir(preset), preset)
 
     # if diff preset given, load it
     if args.paramsFileName is not None:
@@ -332,13 +312,10 @@ if __name__ == "__main__":
     # handle random parameters with dynamic pool of values
     (_, progSpeed) = randomMulti(args.__dict__, "progressionSpeed", speeds)
     (_, progDiff) = randomMulti(args.__dict__, "progressionDifficulty", progDiffs)
-    (majorsSplitRandom, args.majorsSplit) = randomMulti(
-        args.__dict__, "majorsSplit", majorsSplits)
-    (_, gravityBehaviour) = randomMulti(
-        args.__dict__, "gravityBehaviour", gravityBehaviours)
+    (majorsSplitRandom, args.majorsSplit) = randomMulti(args.__dict__, "majorsSplit", majorsSplits)
+    (_, gravityBehaviour) = randomMulti(args.__dict__, "gravityBehaviour", gravityBehaviours)
     (_, args.tourian) = randomMulti(args.__dict__, "tourian", tourians)
-    (areaRandom, args.areaRandomization) = randomMulti(
-        args.__dict__, "areaRandomization", areaRandomizations)
+    (areaRandom, args.areaRandomization) = randomMulti(args.__dict__, "areaRandomization", areaRandomizations)
     (logicRandom, args.logic) = randomMulti(args.__dict__, "logic", logics)
     areaRandomization = args.areaRandomization in ['light', 'full']
     lightArea = args.areaRandomization == 'light'
@@ -372,8 +349,7 @@ if __name__ == "__main__":
     if args.minDifficulty:
         minDifficulty = text2diff[args.minDifficulty]
         if progSpeed != "speedrun":
-            optErrMsgs.append(
-                "Minimum difficulty setting ignored, as prog speed is not speedrun")
+            optErrMsgs.append("Minimum difficulty setting ignored, as prog speed is not speedrun")
     else:
         minDifficulty = 0
 
@@ -384,8 +360,7 @@ if __name__ == "__main__":
         else:
             minimizerN = int(args.minimizerN)
         if minimizerN < 100:
-            forceArg('majorsSplit', 'Full',
-                     "'Majors Split' forced to Full. Use 100 locations on your minimizer to use a non-Full split.", altValue='FullWithHUD')
+            forceArg('majorsSplit', 'Full', "'Majors Split' forced to Full. Use 100 locations on your minimizer to use a non-Full split.", altValue='FullWithHUD')
     else:
         minimizerN = None
 
@@ -412,13 +387,11 @@ if __name__ == "__main__":
     logger.debug("escapeRando: {}".format(args.escapeRando))
 
     if args.suitsRestriction != False and minimizerN is not None:
-        forceArg('suitsRestriction', False,
-                 "'Suits restriction' forced to off", webValue='off')
+        forceArg('suitsRestriction', False, "'Suits restriction' forced to off", webValue='off')
 
     if args.suitsRestriction == 'random':
         if args.morphPlacement == 'late' and areaRandomization == True:
-            forceArg('suitsRestriction', False,
-                     "'Suits restriction' forced to off", webValue='off')
+            forceArg('suitsRestriction', False, "'Suits restriction' forced to off", webValue='off')
         else:
             args.suitsRestriction = bool(random.getrandbits(1))
     logger.debug("suitsRestriction: {}".format(args.suitsRestriction))
@@ -432,26 +405,20 @@ if __name__ == "__main__":
         args.morphPlacement = random.choice(morphPlacements)
     # Scavenger Hunt constraints
     if args.majorsSplit == 'Scavenger':
-        forceArg('progressionSpeed', 'speedrun',
-                 "'Progression speed' forced to speedrun")
+        forceArg('progressionSpeed', 'speedrun', "'Progression speed' forced to speedrun")
         progSpeed = "speedrun"
         forceArg('hud', True, "'VARIA HUD' forced to on", webValue='on')
         if not GraphUtils.isStandardStart(args.startLocation):
-            forceArg('startLocation', "Landing Site",
-                     "Start Location forced to Landing Site because of Scavenger mode")
+            forceArg('startLocation', "Landing Site", "Start Location forced to Landing Site because of Scavenger mode")
         if args.morphPlacement == 'late':
-            forceArg('morphPlacement', 'normal',
-                     "'Morph Placement' forced to normal instead of late")
+            forceArg('morphPlacement', 'normal', "'Morph Placement' forced to normal instead of late")
     # use escape rando for auto escape trigger
     if args.tourian == 'Disabled':
-        forceArg('escapeRando', True,
-                 "'Escape randomization' forced to on", webValue='on')
-        forceArg('noRemoveEscapeEnemies', True, "Enemies enabled during escape sequence",
-                 webArg='removeEscapeEnemies', webValue='off')
+        forceArg('escapeRando', True, "'Escape randomization' forced to on", webValue='on')
+        forceArg('noRemoveEscapeEnemies', True, "Enemies enabled during escape sequence", webArg='removeEscapeEnemies', webValue='off')
     # random fill makes certain options unavailable
     if (progSpeed == 'speedrun' or progSpeed == 'basic') and args.majorsSplit != 'Scavenger':
-        forceArg('progressionDifficulty', 'normal',
-                 "'Progression difficulty' forced to normal")
+        forceArg('progressionDifficulty', 'normal', "'Progression difficulty' forced to normal")
         progDiff = args.progressionDifficulty
     logger.debug("progressionDifficulty: {}".format(progDiff))
 
@@ -462,65 +429,49 @@ if __name__ == "__main__":
     if not GraphUtils.isStandardStart(args.startLocation) and args.plandoRando is None:
         if args.majorsSplit in ['Major', "Chozo"]:
             forceArg('hud', True, "'VARIA HUD' forced to on", webValue='on')
-        forceArg('noVariaTweaks', False,
-                 "'VARIA tweaks' forced to on", webValue='on')
-        forceArg('noLayout', False,
-                 "'Anti-softlock layout patches' forced to on", webValue='on')
-        forceArg('suitsRestriction', False,
-                 "'Suits restriction' forced to off", webValue='off')
-        forceArg('areaLayoutBase', False,
-                 "'Additional layout patches for easier navigation' forced to on", webValue='on')
-        possibleStartAPs, reasons = GraphUtils.getPossibleStartAPs(
-            areaRandomization, maxDifficulty, args.morphPlacement)
+        forceArg('noVariaTweaks', False, "'VARIA tweaks' forced to on", webValue='on')
+        forceArg('noLayout', False, "'Anti-softlock layout patches' forced to on", webValue='on')
+        forceArg('suitsRestriction', False, "'Suits restriction' forced to off", webValue='off')
+        forceArg('areaLayoutBase', False, "'Additional layout patches for easier navigation' forced to on", webValue='on')
+        possibleStartAPs, reasons = GraphUtils.getPossibleStartAPs(areaRandomization, maxDifficulty, args.morphPlacement)
         if args.startLocation == 'random':
             if args.startLocationList is not None:
                 startLocationList = args.startLocationList.split(',')
                 # intersection between user whishes and reality
-                possibleStartAPs = sorted(
-                    list(set(possibleStartAPs).intersection(set(startLocationList))))
+                possibleStartAPs = sorted(list(set(possibleStartAPs).intersection(set(startLocationList))))
                 if len(possibleStartAPs) == 0:
-                    optErrMsgs += ["%s : %s" % (apName, cause) for apName,
-                                   cause in reasons.items() if apName in startLocationList]
-                    optErrMsgs.append(
-                        'Invalid start locations list with your settings.')
+                    optErrMsgs += ["%s : %s" % (apName, cause) for apName, cause in reasons.items() if apName in startLocationList]
+                    optErrMsgs.append('Invalid start locations list with your settings.')
                     dumpErrorMsgs(args.output, optErrMsgs)
                     sys.exit(-1)
             args.startLocation = random.choice(possibleStartAPs)
         elif args.startLocation not in possibleStartAPs:
-            optErrMsgs.append('Invalid start location: {}.  {}'.format(
-                args.startLocation, reasons[args.startLocation]))
-            optErrMsgs.append(
-                'Possible start locations with these settings: {}'.format(possibleStartAPs))
+            optErrMsgs.append('Invalid start location: {}.  {}'.format(args.startLocation, reasons[args.startLocation]))
+            optErrMsgs.append('Possible start locations with these settings: {}'.format(possibleStartAPs))
             dumpErrorMsgs(args.output, optErrMsgs)
             sys.exit(-1)
     ap = getAccessPoint(args.startLocation)
     if 'forcedEarlyMorph' in ap.Start and ap.Start['forcedEarlyMorph'] == True:
-        forceArg('morphPlacement', 'early',
-                 "'Morph Placement' forced to early for custom start location")
+        forceArg('morphPlacement', 'early', "'Morph Placement' forced to early for custom start location")
     else:
         if progSpeed == 'speedrun':
             if args.morphPlacement == 'late':
-                forceArg('morphPlacement', 'normal',
-                         "'Morph Placement' forced to normal instead of late")
+                forceArg('morphPlacement', 'normal', "'Morph Placement' forced to normal instead of late")
             elif (not GraphUtils.isStandardStart(args.startLocation)) and args.morphPlacement != 'normal':
-                forceArg('morphPlacement', 'normal',
-                         "'Morph Placement' forced to normal for custom start location")
+                forceArg('morphPlacement', 'normal', "'Morph Placement' forced to normal for custom start location")
         if args.majorsSplit == 'Chozo' and args.morphPlacement == "late":
-            forceArg('morphPlacement', 'normal',
-                     "'Morph Placement' forced to normal for Chozo")
+            forceArg('morphPlacement', 'normal', "'Morph Placement' forced to normal for Chozo")
 
     print("SEED: " + str(seed))
 
     # fill restrictions dict
-    restrictions = {'Suits': args.suitsRestriction, 'Morph': args.morphPlacement,
-                    "doors": "normal" if not args.doorsColorsRando else "late"}
+    restrictions = { 'Suits' : args.suitsRestriction, 'Morph' : args.morphPlacement, "doors": "normal" if not args.doorsColorsRando else "late" }
     restrictions['MajorMinor'] = 'Full' if args.majorsSplit == 'FullWithHUD' else args.majorsSplit
     if restrictions["MajorMinor"] == "Scavenger":
         scavNumLocs = int(args.scavNumLocs)
         if scavNumLocs == 0:
-            scavNumLocs = random.randint(4, 16)
-        restrictions["ScavengerParams"] = {
-            'numLocs': scavNumLocs, 'vanillaItems': not args.scavRandomized}
+            scavNumLocs = random.randint(4,16)
+        restrictions["ScavengerParams"] = {'numLocs':scavNumLocs, 'vanillaItems':not args.scavRandomized}
     restrictions["EscapeTrigger"] = args.tourian == 'Disabled'
     seedCode = 'X'
     if majorsSplitRandom == False:
@@ -599,10 +550,10 @@ if __name__ == "__main__":
         RomPatches.ActivePatches.append(RomPatches.NerfedRainbowBeam)
     qty = {'energy': energyQty,
            'minors': minorQty,
-           'ammo': {'Missile': missileQty,
-                    'Super': superQty,
-                    'PowerBomb': powerBombQty},
-           'strictMinors': args.strictMinors}
+           'ammo': { 'Missile': missileQty,
+                     'Super': superQty,
+                     'PowerBomb': powerBombQty },
+           'strictMinors' : args.strictMinors }
     logger.debug("quantities: {}".format(qty))
 
     if len(args.superFun) > 0:
@@ -621,8 +572,7 @@ if __name__ == "__main__":
         ctrlList = args.controls.split(',')
         if len(ctrlList) != 7:
             raise ValueError("Invalid control list size")
-        ctrlKeys = ["Shot", "Jump", "Dash", "ItemSelect",
-                    "ItemCancel", "AngleUp", "AngleDown"]
+        ctrlKeys = ["Shot", "Jump", "Dash", "ItemSelect", "ItemCancel", "AngleUp", "AngleDown"]
         ctrlDict = {}
         i = 0
         for k in ctrlKeys:
@@ -636,19 +586,15 @@ if __name__ == "__main__":
     plandoSettings = None
     if args.plandoRando is not None:
         plandoRando = json.loads(args.plandoRando)
-        forceArg('progressionSpeed', 'speedrun',
-                 "'Progression Speed' forced to speedrun")
+        forceArg('progressionSpeed', 'speedrun', "'Progression Speed' forced to speedrun")
         progSpeed = 'speedrun'
         forceArg('majorsSplit', 'Full', "'Majors Split' forced to Full")
-        forceArg('morphPlacement', 'normal',
-                 "'Morph Placement' forced to normal")
-        forceArg('progressionDifficulty', 'normal',
-                 "'Progression difficulty' forced to normal")
+        forceArg('morphPlacement', 'normal', "'Morph Placement' forced to normal")
+        forceArg('progressionDifficulty', 'normal', "'Progression difficulty' forced to normal")
         progDiff = 'normal'
         RomPatches.ActivePatches = plandoRando["patches"]
         DoorsManager.unserialize(plandoRando["doors"])
-        plandoSettings = {
-            "locsItems": plandoRando['locsItems'], "forbiddenItems": plandoRando['forbiddenItems']}
+        plandoSettings = {"locsItems": plandoRando['locsItems'], "forbiddenItems": plandoRando['forbiddenItems']}
     randoSettings = RandoSettings(maxDifficulty, progSpeed, progDiff, qty,
                                   restrictions, args.superFun, args.runtimeLimit_s,
                                   plandoSettings, minDifficulty)
@@ -662,7 +608,7 @@ if __name__ == "__main__":
             RomPatches.ActivePatches += RomPatches.AreaComfortSet
     if args.doorsColorsRando == True:
         RomPatches.ActivePatches.append(RomPatches.RedDoorsMissileOnly)
-    graphSettings = GraphSettings(args.startLocation, areaRandomization, lightArea, args.bosses, args.enemy,
+    graphSettings = GraphSettings(args.startLocation, areaRandomization, lightArea, args.bosses,
                                   args.escapeRando, minimizerN, dotFile,
                                   args.doorsColorsRando, args.allowGreyDoors, args.tourian,
                                   plandoRando["transitions"] if plandoSettings is not None else None)
@@ -671,8 +617,7 @@ if __name__ == "__main__":
         DoorsManager.setDoorsColor()
 
     if plandoSettings is None:
-        objectivesManager = Objectives(
-            args.tourian != 'Disabled', randoSettings)
+        objectivesManager = Objectives(args.tourian != 'Disabled', randoSettings)
         addedObjectives = 0
         if args.majorsSplit == "Scavenger":
             objectivesManager.setScavengerHunt()
@@ -684,11 +629,9 @@ if __name__ == "__main__":
             except:
                 nbObjectives = 0 if "random" in args.objective else None
             if nbObjectives is not None:
-                availableObjectives = args.objectiveList.split(
-                    ',') if args.objectiveList is not None else objectives
+                availableObjectives = args.objectiveList.split(',') if args.objectiveList is not None else objectives
                 if nbObjectives == 0:
-                    nbObjectives = random.randint(
-                        1, min(Objectives.maxActiveGoals, len(availableObjectives)))
+                    nbObjectives = random.randint(1, min(Objectives.maxActiveGoals, len(availableObjectives)))
                 objectivesManager.setRandom(nbObjectives, availableObjectives)
             else:
                 maxActiveGoals = Objectives.maxActiveGoals - addedObjectives
@@ -741,8 +684,7 @@ if __name__ == "__main__":
 
     if stuck == True:
         dumpErrorMsg(args.output, randoExec.errorMsg)
-        print("Can't generate " + fileName +
-              " with the given parameters: {}".format(randoExec.errorMsg))
+        print("Can't generate " + fileName + " with the given parameters: {}".format(randoExec.errorMsg))
         # in vcr mode we still want the seed to be generated to analyze it
         if args.vcr == False:
             sys.exit(-1)
@@ -752,8 +694,7 @@ if __name__ == "__main__":
     # choose on animal patch (only for vanilla flavor)
     if args.animals == True:
         if args.logic != "vanilla":
-            optErrMsgs.append(
-                "Ignored animals surprise because of non vanilla ROM flavor")
+            optErrMsgs.append("Ignored animals surprise because of non vanilla ROM flavor")
         else:
             animalsPatches = ['animal_enemies.ips', 'animals.ips', 'draygonimals.ips', 'escapimals.ips',
                               'gameend.ips', 'grey_door_animals.ips', 'low_timer.ips', 'metalimals.ips',
@@ -762,8 +703,7 @@ if __name__ == "__main__":
                 args.patches.append(random.choice(animalsPatches))
                 args.patches.append("Escape_Animals_Change_Event")
             else:
-                optErrMsgs.append(
-                    "Ignored animals surprise because of escape randomization")
+                optErrMsgs.append("Ignored animals surprise because of escape randomization")
 
     # transform itemLocs in our usual dict(location, item), exclude minors, we'll get them with the solver
     locsItems = {}
@@ -779,22 +719,18 @@ if __name__ == "__main__":
 
     if plandoSettings is not None:
         with open(args.output, 'w') as jsonFile:
-            json.dump({"itemLocs": [il.json() for il in itemLocs],
-                      "errorMsg": randoExec.errorMsg}, jsonFile)
+            json.dump({"itemLocs": [il.json() for il in itemLocs], "errorMsg": randoExec.errorMsg}, jsonFile)
         sys.exit(0)
 
     # generate extended stats
     if args.extStatsFilename is not None:
         with open(args.extStatsFilename, 'a') as extStatsFile:
-            skillPreset = os.path.splitext(
-                os.path.basename(args.paramsFileName))[0]
+            skillPreset = os.path.splitext(os.path.basename(args.paramsFileName))[0]
             if args.fakeRandoPreset is not None:
                 randoPreset = args.fakeRandoPreset
             else:
-                randoPreset = os.path.splitext(
-                    os.path.basename(args.randoPreset))[0]
-            db.DB.dumpExtStatsItems(
-                skillPreset, randoPreset, locsItems, extStatsFile)
+                randoPreset = os.path.splitext(os.path.basename(args.randoPreset))[0]
+            db.DB.dumpExtStatsItems(skillPreset, randoPreset, locsItems, extStatsFile)
 
     try:
         if args.hud == True or args.majorsSplit == "FullWithHUD":
@@ -838,12 +774,10 @@ if __name__ == "__main__":
             romFileName = args.rom
             outFileName = fileName + '.sfc'
             shutil.copyfile(romFileName, outFileName)
-            romPatcher = RomPatcher(
-                settings=patcherSettings, romFileName=outFileName, magic=args.raceMagic)
+            romPatcher = RomPatcher(settings=patcherSettings, romFileName=outFileName, magic=args.raceMagic)
         else:
             outFileName = args.output
-            romPatcher = RomPatcher(
-                settings=patcherSettings, magic=args.raceMagic)
+            romPatcher = RomPatcher(settings=patcherSettings, magic=args.raceMagic)
 
         romPatcher.patchRom()
 
@@ -853,7 +787,7 @@ if __name__ == "__main__":
         else:
             msg = randoExec.errorMsg
 
-        if args.rom is None:  # web mode
+        if args.rom is None: # web mode
             data = romPatcher.romFile.data
             fileName = '{}.sfc'.format(fileName)
             data["fileName"] = fileName
@@ -864,14 +798,13 @@ if __name__ == "__main__":
                 data["forcedArgs"] = forcedArgs
             with open(outFileName, 'w') as jsonFile:
                 json.dump(data, jsonFile)
-        else:  # CLI mode
+        else: # CLI mode
             if msg != "":
                 print(msg)
     except Exception as e:
         import traceback
         traceback.print_exc(file=sys.stdout)
-        msg = "Error patching {}: ({}: {})".format(
-            outFileName, type(e).__name__, e)
+        msg = "Error patching {}: ({}: {})".format(outFileName, type(e).__name__, e)
         dumpErrorMsg(args.output, msg)
         sys.exit(-1)
 

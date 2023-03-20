@@ -2,17 +2,16 @@ from utils.parameters import infinity
 import copy
 from rando.RoomSpriteInfo import RoomSpriteInfo
 
-
 class Location:
     graph_slots = (
         'distance', 'accessPoint', 'difficulty', 'path',
-        'pathDifficulty', 'locDifficulty')
-
+        'pathDifficulty', 'locDifficulty' )
+    
     rando_slots = (
         'restricted', )
 
     solver_slots = (
-        'itemName', 'comeBack', 'areaWeight')
+        'itemName', 'comeBack', 'areaWeight' )
 
     __slots__ = graph_slots + rando_slots + solver_slots
 
@@ -72,8 +71,7 @@ class Location:
     def evalComeBack(self, smbm, areaGraph, ap):
         if self.difficulty.bool == True:
             # check if we can come back to given ap from the location
-            self.comeBack = areaGraph.canAccess(
-                smbm, self.accessPoint, ap, infinity, self.itemName)
+            self.comeBack = areaGraph.canAccess(smbm, self.accessPoint, ap, infinity, self.itemName)
 
     def json(self):
         # to return after plando rando
@@ -84,8 +82,8 @@ class Location:
 
     def __repr__(self):
         return "Location({}: {})".format(self.Name,
-                                         '. '.join(
-                                             (repr(getattr(self, slot)) for slot in Location.__slots__ if getattr(self, slot) is not None)))
+            '. '.join(
+                (repr(getattr(self, slot)) for slot in Location.__slots__ if getattr(self, slot) is not None)))
 
     def __copy__(self):
         d = self.difficulty
@@ -104,7 +102,6 @@ class Location:
 
     def __eq__(self, other):
         return self.Name == other.Name
-
 
 def define_location(
         Area, GraphArea, SolveArea, Name, Class, CanHidden, Address, Id,
