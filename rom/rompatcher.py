@@ -217,17 +217,17 @@ class RomPatcher:
             ret.append(self.altLocsAddresses[loc.Name])
         return ret
 
-    def changeHeaderData(self, ptr, enemyLvl):
+    def changeHeaderData(self, ptr) -> dict:
         replaceMap = {}
         while (oldEnemyID := self.romFile.readWord(ptr)) != 0xFFFF:
-            newSprite = EnemyManager.getRandomSprite(enemyLvl)
+            newSprite = EnemyManager.getRandomSprite()
             replaceMap[oldEnemyID] = newSprite
             self.romFile.writeWord(newSprite.Code, ptr)
             # self.romFile.writeWord(pal, ptr+2) # palette data
             ptr += 4
         return replaceMap
 
-    def replaceEnemy(self, ptr, newEnemy):
+    def replaceEnemy(self, ptr, newEnemy) -> None:
         self.romFile.writeWord(newEnemy.Code, ptr)
         ptr += 2
         ptr += 4    # X and Y pos
@@ -241,8 +241,8 @@ class RomPatcher:
         ptr += 2
         self.romFile.writeWord(newEnemy.Speed2, ptr)
 
-    def randomizeRoomEnemies(self, room, enemyLvl):
-        replaceMap = self.changeHeaderData(room.header, enemyLvl)
+    def randomizeRoomEnemies(self, room) -> None:
+        replaceMap = self.changeHeaderData(room.header)
         ptr = room.spriteData
         while (replaceID := self.romFile.readWord(ptr)) != 0xFFFF:
             if replaceID in replaceMap:
@@ -251,13 +251,12 @@ class RomPatcher:
         # Get rid of locked enemy doors
         self.romFile.writeByte(0x00, ptr+2)
 
-    def randomizeEnemies(self, itemLocs):
-        enemyLvl = 0
+    def randomizeEnemies(self, itemLocs) -> None:
         for itemLoc in itemLocs:
             rooms = itemLoc.Location.NearbyRoomsWithSprites
             for room in rooms:
-                self.randomizeRoomEnemies(room, enemyLvl)
-                enemyLvl += 5  # TODO: Only increase on major items? Minor as an option?
+                self.randomizeRoomEnemies(room)
+                EnemyManager.setEnemyLvl()
         self.romFile.writeWord(0xEAEA, 0x144B81)  # Let ROBOs walk
         print("Enemies randomized")
 

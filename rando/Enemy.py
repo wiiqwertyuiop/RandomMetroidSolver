@@ -546,9 +546,25 @@ class EnemyManager:
             SpecialGFX=0x0004,
         )
     }
+    EnemyLvl = 0
 
     @staticmethod
-    def getRandomSprite(curDifficulty):
-        filteredByDifficulty = {_k: enmy for _k,
-                                enmy in EnemyManager.Enemies.items() if curDifficulty >= enmy.Difficulty}
+    def setEnemyLvl() -> None:
+        EnemyManager.EnemyLvl += 5 # TODO: Add more logic here
+
+    @staticmethod
+    def getEnemyLvl() -> int:
+        return EnemyManager.EnemyLvl
+
+    @staticmethod
+    def getRandomSprite() -> Enemy:
+        filteredByDifficulty = {
+            _k: enmy for _k, enmy in EnemyManager.Enemies.items() 
+            if EnemyManager.enemyFilter(enmy)
+        }
         return random.choice(list(filteredByDifficulty.items()))[1]
+    
+    @staticmethod
+    def enemyFilter(enmy) -> bool:
+        # TODO
+        return (EnemyManager.EnemyLvl >= enmy.Difficulty)
