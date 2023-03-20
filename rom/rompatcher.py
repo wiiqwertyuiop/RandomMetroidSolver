@@ -4,6 +4,7 @@ from math import ceil
 from enum import IntFlag
 from rando.Items import ItemManager
 from rando.Enemy import EnemyManager
+from rando.RoomSpriteInfo import getTourianRooms
 from rom.compression import Compressor
 from rom.ips import IPS_Patch
 from utils.doorsmanager import DoorsManager, IndicatorFlag
@@ -220,10 +221,11 @@ class RomPatcher:
     def changeHeaderData(self, ptr) -> dict:
         replaceMap = {}
         while (oldEnemyID := self.romFile.readWord(ptr)) != 0xFFFF:
-            newSprite = EnemyManager.getRandomSprite()
-            replaceMap[oldEnemyID] = newSprite
-            self.romFile.writeWord(newSprite.Code, ptr)
-            # self.romFile.writeWord(pal, ptr+2) # palette data
+            if oldEnemyID < 0xD4FF or oldEnemyID > 0xD5FF:
+                newSprite = EnemyManager.getRandomSprite()
+                replaceMap[oldEnemyID] = newSprite
+                self.romFile.writeWord(newSprite.Code, ptr)
+                # self.romFile.writeWord(pal, ptr+2) # palette data
             ptr += 4
         return replaceMap
 
@@ -256,9 +258,18 @@ class RomPatcher:
             rooms = itemLoc.Location.NearbyRoomsWithSprites
             for room in rooms:
                 self.randomizeRoomEnemies(room)
-                EnemyManager.setEnemyLvl()
+            EnemyManager.setEnemyLvl()
+        self.randomizeTourianRooms()
         self.romFile.writeWord(0xEAEA, 0x144B81)  # Let ROBOs walk
         print("Enemies randomized")
+    
+    def randomizeTourianRooms(self) -> None:
+        # Randomize tourian rooms.
+        # This is because we don't know when along we will be in Tourian
+        # We also want to give the max difficulty here
+        tourianRooms = getTourianRooms()
+        for room in tourianRooms:
+            self.randomizeRoomEnemies(room)
 
     def writeItem(self, itemLoc):
         loc = itemLoc.Location

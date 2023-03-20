@@ -235,6 +235,13 @@ locationsDict = {
         Room='Morph Ball Room',
         VanillaItemType='Morph',
         HUD=0,
+        NearbyRoomsWithSprites=[
+            RoomSpriteInfo(0x1A03B5, 0x109326),  # Pop	BR	79E9F [Standard]
+            RoomSpriteInfo(0x1A0595, 0x109BC6),  # Pop	BR	79F11 [Standard]
+            RoomSpriteInfo(0x1A020F, 0x108A15),  # Pop	CR	7975C [Standard]
+            RoomSpriteInfo(0x1A014F, 0x1085E1),  # Pop	CR	796BA [Standard]
+            RoomSpriteInfo(0x1A0185, 0x1086FA),  # Pop	CR	792FD [Standard]
+        ]
     ),
     "Energy Tank, Brinstar Ceiling":
     define_location(
@@ -248,6 +255,18 @@ locationsDict = {
         Id=0x1d,
         Visibility="Hidden",
         Room='Blue Brinstar Energy Tank Room',
+        NearbyRoomsWithSprites=[
+            RoomSpriteInfo(0x1A008F, 0x108427),  # Pop	CR	7975C [Awake]
+            RoomSpriteInfo(0x1A01D3, 0x1088C9),  # Pop	CR	796BA [Awake]
+            RoomSpriteInfo(0x1A0067, 0x108261),  # Pop	CR	792FD [Awake]
+            RoomSpriteInfo(0x1A007D, 0x108364),  # Pop	CR	79879 [Standard]
+            RoomSpriteInfo(0x1A025F, 0x108B87),  # Pop	CR	798E2 [Standard]
+            RoomSpriteInfo(0x1A0043, 0x10819B),  # Pop	CR	79A44 [Events 1]
+            RoomSpriteInfo(0x1A0055, 0x1081FE),  # Pop	CR	79A44 [Standard]
+            RoomSpriteInfo(0x1A0377, 0x10918D),  # Pop	BR	79F11 [Events 1]
+            RoomSpriteInfo(0x1A0389, 0x109200),  # Pop	BR	79F64 [Events 1]
+            RoomSpriteInfo(0x1A03D1, 0x1093AC),  # Pop	BR	79E9F [Standard]
+        ]
     ),
     "Energy Tank, Etecoons":
     define_location(
@@ -682,6 +701,9 @@ locationsDict = {
         Id=0x91,
         Visibility="Chozo",
         Room='West Sand Hole',
+        NearbyRoomsWithSprites=[
+            RoomSpriteInfo(0x1A106C, 0x10DF96),  # Pop	MA	7D4EF [Standard]
+        ]
     ),
     "Spring Ball":
     define_location(
@@ -856,6 +878,14 @@ locationsDict = {
         Id=0x1,
         Visibility="Visible",
         Room='West Ocean',
+        NearbyRoomsWithSprites=[
+            RoomSpriteInfo(0x1A0161, 0x108684),  # Pop	CR	793FE [Standard]
+            RoomSpriteInfo(0x1A0009, 0x108002),  # Pop	CR	794FD [Standard]
+            RoomSpriteInfo(0x1A023D, 0x108B3E),  # Pop	CR	79552 [Standard]
+            RoomSpriteInfo(0x1A0221, 0x108AB8),  # Pop	CR	7957D [Standard]
+            RoomSpriteInfo(0x1A0C6D, 0x10C3E6),  # Pop	WS	7CA08 [Standard]
+            RoomSpriteInfo(0x1A01E1, 0x10897C),  # Pop	CR	79461 [Standard]
+        ]
     ),
     "Missile (outside Wrecked Ship top)":
     define_location(
@@ -869,6 +899,14 @@ locationsDict = {
         Id=0x2,
         Visibility="Hidden",
         Room='West Ocean',
+        NearbyRoomsWithSprites=[
+            RoomSpriteInfo(0x1A0161, 0x108684),  # Pop	CR	793FE [Standard]
+            RoomSpriteInfo(0x1A0009, 0x108002),  # Pop	CR	794FD [Standard]
+            RoomSpriteInfo(0x1A023D, 0x108B3E),  # Pop	CR	79552 [Standard]
+            RoomSpriteInfo(0x1A0221, 0x108AB8),  # Pop	CR	7957D [Standard]
+            RoomSpriteInfo(0x1A0C6D, 0x10C3E6),  # Pop	WS	7CA08 [Standard]
+            RoomSpriteInfo(0x1A01E1, 0x10897C),  # Pop	CR	79461 [Standard]
+        ]
     ),
     "Missile (outside Wrecked Ship middle)":
     define_location(
@@ -882,6 +920,14 @@ locationsDict = {
         Id=0x3,
         Visibility="Visible",
         Room='West Ocean',
+        NearbyRoomsWithSprites=[
+            RoomSpriteInfo(0x1A0161, 0x108684),  # Pop	CR	793FE [Standard]
+            RoomSpriteInfo(0x1A0009, 0x108002),  # Pop	CR	794FD [Standard]
+            RoomSpriteInfo(0x1A023D, 0x108B3E),  # Pop	CR	79552 [Standard]
+            RoomSpriteInfo(0x1A0221, 0x108AB8),  # Pop	CR	7957D [Standard]
+            RoomSpriteInfo(0x1A0C6D, 0x10C3E6),  # Pop	WS	7CA08 [Standard]
+            RoomSpriteInfo(0x1A01E1, 0x10897C),  # Pop	CR	79461 [Standard]
+        ]
     ),
     "Missile (Crateria moat)":
     define_location(
@@ -897,11 +943,6 @@ locationsDict = {
         Room='The Moat',
         NearbyRoomsWithSprites=[
             RoomSpriteInfo(0x1A02BF, 0x108F19),  # Pop	CR	7948C [Standard]
-            RoomSpriteInfo(0x1A0161, 0x108684),  # Pop	CR	793FE [Standard]
-            RoomSpriteInfo(0x1A0009, 0x108002),  # Pop	CR	794FD [Standard]
-            RoomSpriteInfo(0x1A023D, 0x108B3E),  # Pop	CR	79552 [Standard]
-            RoomSpriteInfo(0x1A0221, 0x108AB8),  # Pop	CR	7957D [Standard]
-            RoomSpriteInfo(0x1A0C6D, 0x10C3E6),  # Pop	WS	7CA08 [Standard]
         ]
     ),
     "Missile (Crateria bottom)":
@@ -929,6 +970,10 @@ locationsDict = {
         Id=0x9,
         Visibility="Visible",
         Room='Green Pirates Shaft',
+        NearbyRoomsWithSprites=[
+            RoomSpriteInfo(0x1A00C1, 0x108500),  # Pop	CR	799BD [Standard]
+            RoomSpriteInfo(0x1A0271, 0x108BCA),  # Pop	CR	79969 [Standard]
+        ]
     ),
     "Missile (Crateria gauntlet left)":
     define_location(
@@ -942,6 +987,10 @@ locationsDict = {
         Id=0xa,
         Visibility="Visible",
         Room='Green Pirates Shaft',
+        NearbyRoomsWithSprites=[
+            RoomSpriteInfo(0x1A00C1, 0x108500),  # Pop	CR	799BD [Standard]
+            RoomSpriteInfo(0x1A0271, 0x108BCA),  # Pop	CR	79969 [Standard]
+        ]
     ),
     "Super Missile (Crateria)":
     define_location(
@@ -1036,6 +1085,9 @@ locationsDict = {
         Id=0x10,
         Visibility="Visible",
         Room='Early Supers Room',
+        NearbyRoomsWithSprites=[
+            RoomSpriteInfo(0x1A0565, 0x109A40),  # Pop	BR	79BC8 [Standard]
+        ]
     ),
     "Missile (green Brinstar behind missile)":
     define_location(
@@ -1075,6 +1127,12 @@ locationsDict = {
         Id=0x15,
         Visibility="Visible",
         Room='Big Pink',
+        NearbyRoomsWithSprites=[
+            RoomSpriteInfo(0x1A0429, 0x10953E),  # Pop	BR	79D19 [Standard]
+            RoomSpriteInfo(0x1A05B9, 0x109D5C),  # Pop	BR	79CB3 [Standard]
+            RoomSpriteInfo(0x1A02FB, 0x108FC5),  # Pop	BR	79D9C [Standard]
+            RoomSpriteInfo(0x1A04F7, 0x1097FB),  # Pop	BR	7A130 [Standard]
+        ]
     ),
     "Missile (pink Brinstar bottom)":
     define_location(
@@ -1088,6 +1146,12 @@ locationsDict = {
         Id=0x16,
         Visibility="Visible",
         Room='Big Pink',
+        NearbyRoomsWithSprites=[
+            RoomSpriteInfo(0x1A0429, 0x10953E),  # Pop	BR	79D19 [Standard]
+            RoomSpriteInfo(0x1A05B9, 0x109D5C),  # Pop	BR	79CB3 [Standard]
+            RoomSpriteInfo(0x1A02FB, 0x108FC5),  # Pop	BR	79D9C [Standard]
+            RoomSpriteInfo(0x1A04F7, 0x1097FB),  # Pop	BR	7A130 [Standard]
+        ]
     ),
     "Power Bomb (pink Brinstar)":
     define_location(
@@ -1134,13 +1198,13 @@ locationsDict = {
         Id=0x1b,
         Visibility="Visible",
         Room='Morph Ball Room',
-        NearbyRoomsWithSprites=[
-            RoomSpriteInfo(0x1A03B5, 0x109326),  # Pop	BR	79E9F [Standard]
-            RoomSpriteInfo(0x1A0595, 0x109BC6),  # Pop	BR	79F11 [Standard]
-            RoomSpriteInfo(0x1A020F, 0x108A15),  # Pop	CR	7975C [Standard]
-            RoomSpriteInfo(0x1A014F, 0x1085E1),  # Pop	CR	796BA [Standard]
-            RoomSpriteInfo(0x1A0185, 0x1086FA),  # Pop	CR	792FD [Standard]
-        ]
+        # NearbyRoomsWithSprites=[
+        #     RoomSpriteInfo(0x1A03B5, 0x109326),  # Pop	BR	79E9F [Standard]
+        #     RoomSpriteInfo(0x1A0595, 0x109BC6),  # Pop	BR	79F11 [Standard]
+        #     RoomSpriteInfo(0x1A020F, 0x108A15),  # Pop	CR	7975C [Standard]
+        #     RoomSpriteInfo(0x1A014F, 0x1085E1),  # Pop	CR	796BA [Standard]
+        #     RoomSpriteInfo(0x1A0185, 0x1086FA),  # Pop	CR	792FD [Standard]
+        # ]
     ),
     "Missile (blue Brinstar middle)":
     define_location(
@@ -1266,6 +1330,12 @@ locationsDict = {
         Id=0x29,
         Visibility="Visible",
         Room='Alpha Power Bomb Room',
+        NearbyRoomsWithSprites=[
+            RoomSpriteInfo(0x1A061F, 0x109F61),  # Pop	BR	7A3AE [Standard]
+            RoomSpriteInfo(0x1A063F, 0x10A057),  # Pop	BR	7A322 [Standard]
+            RoomSpriteInfo(0x1A034F, 0x1090C7),  # Pop	BR	7A37C [Standard]
+            RoomSpriteInfo(0x1A05D3, 0x109E2F),  # Pop	BR	7A2F7 [Standard]
+        ]
     ),
     "Missile (Kraid)":
     define_location(
@@ -1543,6 +1613,12 @@ locationsDict = {
         Id=0x47,
         Visibility="Hidden",
         Room="Golden Torizo's Room",
+        NearbyRoomsWithSprites=[
+            RoomSpriteInfo(0x1A06B1, 0x10A23C),  # Pop	NO	7B1E5 [Standard]
+            RoomSpriteInfo(0x1A093D, 0x10AFEA),  # Pop	NO	7B236 [Standard]
+            RoomSpriteInfo(0x1A0727, 0x10A4F1),  # Pop	NO	7B3A5 [Standard]
+            RoomSpriteInfo(0x1A08B1, 0x10AD6C),  # Pop	NO	7B457 [Standard]
+        ]
     ),
     "Missile (Mickey Mouse room)":
     define_location(
@@ -1671,7 +1747,6 @@ locationsDict = {
         NearbyRoomsWithSprites=[
             RoomSpriteInfo(0x1A0B87, 0x10BE93),  # Pop	WS	7C98E [Standard]
             RoomSpriteInfo(0x1A01C1, 0x1088B6),  # Pop	CR	7968F [Standard]
-            RoomSpriteInfo(0x1A01E1, 0x10897C),  # Pop	CR	79461 [Standard]
         ]
     ),
     "Missile (Wrecked Ship top)":
@@ -1735,6 +1810,16 @@ locationsDict = {
         Id=0x89,
         Visibility="Visible",
         Room='Main Street',
+        NearbyRoomsWithSprites=[
+            RoomSpriteInfo(0x1A103A, 0x10DE6D),  # Pop	MA	7CFC9 [Standard]
+            RoomSpriteInfo(0x1A0EB6, 0x10D635),  # Pop	MA	7D08A [Standard]
+            RoomSpriteInfo(0x1A101A, 0x10DE17),  # Pop	MA	7D21C [Standard]
+            RoomSpriteInfo(0x1A0E96, 0x10D53F),  # Pop	MA	7CF80 [Standard]
+            RoomSpriteInfo(0x1A0D41, 0x10CE6A),  # Pop	MA	7D0B9 [Standard]
+            RoomSpriteInfo(0x1A109E, 0x10E07F),  # Pop	MA	7D017 [Standard]
+            RoomSpriteInfo(0x1A0E2C, 0x10D3AA),  # Pop	MA	7D104 [Standard]
+            RoomSpriteInfo(0x1A0D77, 0x10CFC3),  # Pop	MA	7D1A3 [Standard]
+        ]
     ),
     "Missile (green Maridia tatori)":
     define_location(
@@ -1777,6 +1862,9 @@ locationsDict = {
         Id=0x8d,
         Visibility="Visible",
         Room='Watering Hole',
+        NearbyRoomsWithSprites=[
+            RoomSpriteInfo(0x1A0D65, 0x10CF90),  # Pop	MA	7D13B [Standard]
+        ]
     ),
     "Missile (yellow Maridia false wall)":
     define_location(
@@ -1807,6 +1895,9 @@ locationsDict = {
         Id=0x90,
         Visibility="Visible",
         Room='West Sand Hole',
+        NearbyRoomsWithSprites=[
+            RoomSpriteInfo(0x1A106C, 0x10DF96),  # Pop	MA	7D4EF [Standard]
+        ]
     ),
     "Missile (right Maridia sand pit room)":
     define_location(
@@ -1820,6 +1911,9 @@ locationsDict = {
         Id=0x92,
         Visibility="Visible",
         Room='East Sand Hole',
+        NearbyRoomsWithSprites=[
+            RoomSpriteInfo(0x1A0F6A, 0x10DAD3),  # Pop	MA 7D4C2 [Standard]
+        ]
     ),
     "Power Bomb (right Maridia sand pit room)":
     define_location(
@@ -1833,6 +1927,9 @@ locationsDict = {
         Id=0x93,
         Visibility="Visible",
         Room='East Sand Hole',
+        NearbyRoomsWithSprites=[
+            RoomSpriteInfo(0x1A0F6A, 0x10DAD3),  # Pop	MA 7D4C2 [Standard]
+        ]
     ),
     "Missile (pink Maridia)":
     define_location(
@@ -1849,6 +1946,7 @@ locationsDict = {
         NearbyRoomsWithSprites=[
             RoomSpriteInfo(0x1A0E1E, 0x10D357),  # Pop	MA	7D5A7 [Standard]
             RoomSpriteInfo(0x1A0F78, 0x10DB66),  # Pop	MA	7D54D [Standard]
+            # RoomSpriteInfo(0x1A0F86, ),  # Pop	MA	7D57A [Standard]
             RoomSpriteInfo(0x1A0FA2, 0x10DC6F),  # Pop	MA	7D617 [Standard]
             RoomSpriteInfo(0x1A106C, 0x10DF96),  # Pop	MA	7D4EF [Standard]
             RoomSpriteInfo(0x1A105E, 0x10DF63),  # Pop	MA	7D51E [Standard]
@@ -1866,6 +1964,13 @@ locationsDict = {
         Id=0x95,
         Visibility="Visible",
         Room='Aqueduct',
+        NearbyRoomsWithSprites=[
+            RoomSpriteInfo(0x1A0E1E, 0x10D357),  # Pop	MA	7D5A7 [Standard]
+            RoomSpriteInfo(0x1A0F78, 0x10DB66),  # Pop	MA	7D54D [Standard]
+            RoomSpriteInfo(0x1A0FA2, 0x10DC6F),  # Pop	MA	7D617 [Standard]
+            RoomSpriteInfo(0x1A106C, 0x10DF96),  # Pop	MA	7D4EF [Standard]
+            RoomSpriteInfo(0x1A105E, 0x10DF63),  # Pop	MA	7D51E [Standard]
+        ]
     ),
     "Missile (Draygon)":
     define_location(
