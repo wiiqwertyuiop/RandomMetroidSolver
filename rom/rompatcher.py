@@ -258,7 +258,7 @@ class RomPatcher:
             rooms = itemLoc.Location.NearbyRoomsWithSprites
             for room in rooms:
                 self.randomizeRoomEnemies(room)
-            EnemyManager.setEnemyLvl()
+            EnemyManager.setEnemyLvl(itemLoc.Item)
         self.randomizeTourianRooms()
         self.romFile.writeWord(0xEAEA, 0x144B81)  # Let ROBOs walk
         print("Enemies randomized")

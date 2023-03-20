@@ -546,15 +546,27 @@ class EnemyManager:
             SpecialGFX=0x0004,
         )
     }
-    EnemyLvl = 0
+    allowedSpawnLevel = 0
 
     @staticmethod
-    def setEnemyLvl() -> None:
-        EnemyManager.EnemyLvl += 5 # TODO: Add more logic here
+    def setEnemyLvl(item) -> None:
+        # TODO WIP
+        inc = 0
+        if item.Type in ['Plasma', 'ScrewAttack']:
+            inc = 50
+        elif item.Type in ['Wave', 'Ice']:
+            inc = 30
+        elif item.Type in ['SpaceJump', 'Varia', 'Gravity', 'Spazer']:
+            inc = 20
+        elif item.Type in ['PowerBomb', 'Charge']:
+            inc = 10
+        elif item.Type not in ['XRayScope', 'Nothing', 'NoEnergy']:
+            inc = 5
+        EnemyManager.allowedSpawnLevel += inc
 
     @staticmethod
     def getEnemyLvl() -> int:
-        return EnemyManager.EnemyLvl
+        return EnemyManager.allowedSpawnLevel
 
     @staticmethod
     def getRandomSprite() -> Enemy:
@@ -567,4 +579,4 @@ class EnemyManager:
     @staticmethod
     def enemyFilter(enmy) -> bool:
         # TODO
-        return (EnemyManager.EnemyLvl >= enmy.Difficulty)
+        return (EnemyManager.allowedSpawnLevel >= enmy.Difficulty)
