@@ -1,18 +1,26 @@
-import os, json, sys, re, random
+import os
+import json
+import sys
+import re
+import random
 
 from utils.parameters import Knows, Settings, Controller, isKnows, isSettings, isButton
 from utils.parameters import easy, medium, hard, harder, hardcore, mania
 from logic.smbool import SMBool
 
+
 def getPythonExec():
     try:
         from utils.python_exec import pythonExec
     except:
-        pythonExec = "python{}.{}".format(sys.version_info.major, sys.version_info.minor)
+        pythonExec = "python{}.{}".format(
+            sys.version_info.major, sys.version_info.minor)
     return pythonExec
+
 
 def isStdPreset(preset):
     return preset in ['newbie', 'casual', 'regular', 'veteran', 'expert', 'master', 'samus', 'solution', 'Season_Races', 'SMRAT2021', 'Torneio_SGPT3']
+
 
 def getPresetDir(preset):
     if isStdPreset(preset):
@@ -20,8 +28,10 @@ def getPresetDir(preset):
     else:
         return 'community_presets'
 
+
 def removeChars(string, toRemove):
     return re.sub('[{}]+'.format(toRemove), '', string)
+
 
 def range_union(ranges):
     ret = []
@@ -34,6 +44,8 @@ def range_union(ranges):
     return [range(r[0], r[1]) for r in ret]
 
 # https://github.com/robotools/fontParts/commit/7cb561033929cfb4a723d274672e7257f5e68237
+
+
 def normalizeRounding(n):
     # Normalizes rounding as Python 2 and Python 3 handing the rounding of halves (0.5, 1.5, etc) differently.
     # This normalizes rounding to be the same in both environments.
@@ -44,6 +56,8 @@ def normalizeRounding(n):
 
 # gauss random in [0, r] range
 # the higher the slope, the less probable extreme values are.
+
+
 def randGaussBounds(r, slope=5):
     r = float(r)
     n = normalizeRounding(random.gauss(r/2, r/slope))
@@ -56,6 +70,8 @@ def randGaussBounds(r, slope=5):
 # from a relative weight dictionary, gives a normalized range dictionary
 # example :
 # { 'a' : 10, 'b' : 17, 'c' : 3 } => {'c': 0.1, 'a':0.4333333, 'b':1 }
+
+
 def getRangeDict(weightDict):
     total = float(sum(weightDict.values()))
     rangeDict = {}
@@ -67,6 +83,7 @@ def getRangeDict(weightDict):
 
     return rangeDict
 
+
 def chooseFromRange(rangeDict):
     r = random.random()
     val = None
@@ -75,6 +92,7 @@ def chooseFromRange(rangeDict):
         if r < rangeDict[v]:
             return v
     return val
+
 
 class PresetLoader(object):
     @staticmethod
@@ -85,11 +103,13 @@ class PresetLoader(object):
             if ext[1].lower() == '.json':
                 return PresetLoaderJson(params)
             else:
-                raise Exception("PresetLoader: wrong parameters file type: {}".format(ext[1]))
+                raise Exception(
+                    "PresetLoader: wrong parameters file type: {}".format(ext[1]))
         elif type(params) is dict:
             return PresetLoaderDict(params)
         else:
-            raise Exception("wrong parameters input, is neither a string nor a json file name: {}::{}".format(params, type(params)))
+            raise Exception("wrong parameters input, is neither a string nor a json file name: {}::{}".format(
+                params, type(params)))
 
     def __init__(self):
         if 'Knows' not in self.params:
@@ -110,17 +130,17 @@ class PresetLoader(object):
                                              self.params['Knows'][param][1],
                                              ['{}'.format(param)]))
         # Settings
-        ## hard rooms
+        # hard rooms
         for hardRoom in ['X-Ray', 'Gauntlet']:
             if hardRoom in self.params['Settings']:
                 Settings.hardRooms[hardRoom] = Settings.hardRoomsPresets[hardRoom][self.params['Settings'][hardRoom]]
 
-        ## bosses
+        # bosses
         for boss in ['Kraid', 'Phantoon', 'Draygon', 'Ridley', 'MotherBrain']:
             if boss in self.params['Settings']:
                 Settings.bossesDifficulty[boss] = Settings.bossesDifficultyPresets[boss][self.params['Settings'][boss]]
 
-        ## hellruns
+        # hellruns
         for hellRun in ['Ice', 'MainUpperNorfair', 'LowerNorfair']:
             if hellRun in self.params['Settings']:
                 Settings.hellRuns[hellRun] = Settings.hellRunPresets[hellRun][self.params['Settings'][hellRun]]
@@ -245,6 +265,7 @@ class PresetLoader(object):
 
         return score
 
+
 class PresetLoaderJson(PresetLoader):
     # when called from the test suite
     def __init__(self, jsonFileName):
@@ -252,11 +273,13 @@ class PresetLoaderJson(PresetLoader):
             self.params = json.load(jsonFile)
         super(PresetLoaderJson, self).__init__()
 
+
 class PresetLoaderDict(PresetLoader):
     # when called from the website
     def __init__(self, params):
         self.params = params
         super(PresetLoaderDict, self).__init__()
+
 
 def getDefaultMultiValues():
     from graph.graph_utils import GraphUtils
@@ -277,6 +300,8 @@ def getDefaultMultiValues():
     return defaultMultiValues
 
 # from web to cli
+
+
 def convertParam(randoParams, param, inverse=False):
     value = randoParams.get(param, "off" if inverse == False else "on")
     if value == "on":
@@ -286,6 +311,7 @@ def convertParam(randoParams, param, inverse=False):
     elif value == "random":
         return "random"
     raise Exception("invalid value for parameter {}".format(param))
+
 
 def loadRandoPreset(randoPreset, args):
     # load the rando preset json file and add the parameters inside it to the args parser
@@ -337,14 +363,17 @@ def loadRandoPreset(randoPreset, args):
         # DEPRECATED previously areaRandomization was on/off, now it's off, full, or light
         args.areaRandomization == "full"
     if args.areaRandomization != "off":
-        args.areaLayoutBase = convertParam(randoParams, "areaLayout", inverse=True)
+        args.areaLayoutBase = convertParam(
+            randoParams, "areaLayout", inverse=True)
     args.escapeRando = convertParam(randoParams, "escapeRando")
     if args.escapeRando == True:
-        args.noRemoveEscapeEnemies = convertParam(randoParams, "removeEscapeEnemies", inverse=True)
+        args.noRemoveEscapeEnemies = convertParam(
+            randoParams, "removeEscapeEnemies", inverse=True)
 
     args.doorsColorsRando = convertParam(randoParams, "doorsColorsRando")
     args.allowGreyDoors = convertParam(randoParams, "allowGreyDoors")
     args.bosses = convertParam(randoParams, "bossRandomization")
+    args.enemy = convertParam(randoParams, "enemyRandomization")
 
     if randoParams.get("funCombat", "off") != "off":
         if randoParams["funCombat"] == "on":
@@ -362,7 +391,8 @@ def loadRandoPreset(randoPreset, args):
         else:
             args.superFun.append("SuitsRandom")
 
-    ipsPatches = ["itemsounds", "spinjumprestart", "rando_speed", "elevators_speed", "fast_doors", "refill_before_save", "relaxed_round_robin_cf"]
+    ipsPatches = ["itemsounds", "spinjumprestart", "rando_speed", "elevators_speed",
+                  "fast_doors", "refill_before_save", "relaxed_round_robin_cf"]
     for patch in ipsPatches:
         if randoParams.get(patch, "off") == "on":
             args.patches.append(patch + '.ips')
@@ -431,14 +461,18 @@ def loadRandoPreset(randoPreset, args):
         args.minimizerN = randoParams["minimizerQty"]
 
     defaultMultiValues = getDefaultMultiValues()
-    multiElems = ["majorsSplit", "startLocation", "energyQty", "morphPlacement", "progressionDifficulty", "progressionSpeed", "gravityBehaviour", "objective", "areaRandomization", "logic"]
+    multiElems = ["majorsSplit", "startLocation", "energyQty", "morphPlacement", "progressionDifficulty",
+                  "progressionSpeed", "gravityBehaviour", "objective", "areaRandomization", "logic"]
     for multiElem in multiElems:
         if multiElem+'MultiSelect' in randoParams:
-            setattr(args, multiElem+'List', ','.join(randoParams[multiElem+'MultiSelect']))
+            setattr(args, multiElem+'List',
+                    ','.join(randoParams[multiElem+'MultiSelect']))
         else:
-            setattr(args, multiElem+'List', ','.join(defaultMultiValues[multiElem]))
+            setattr(args, multiElem+'List',
+                    ','.join(defaultMultiValues[multiElem]))
 
     return randoParams.get("preset")
+
 
 def getRandomizerDefaultParameters():
     defaultParams = {}
@@ -486,6 +520,7 @@ def getRandomizerDefaultParameters():
     defaultParams['escapeRando'] = "off"
     defaultParams['removeEscapeEnemies'] = "off"
     defaultParams['bossRandomization'] = "off"
+    defaultParams['enemyRandomization'] = "off"
     defaultParams['minimizer'] = "off"
     defaultParams['minimizerQty'] = "45"
     defaultParams['funCombat'] = "off"
@@ -511,6 +546,7 @@ def getRandomizerDefaultParameters():
 
     return defaultParams
 
+
 def fixEnergy(items):
     # display number of energy used
     energies = [i for i in items if i.find('ETank') != -1]
@@ -519,7 +555,8 @@ def fixEnergy(items):
         for energy in energies:
             nETank = int(energy[0:energy.find('-ETank')])
             if energy.find('-Reserve') != -1:
-                nReserve = int(energy[energy.find(' - ')+len(' - '):energy.find('-Reserve')])
+                nReserve = int(
+                    energy[energy.find(' - ')+len(' - '):energy.find('-Reserve')])
             else:
                 nReserve = 0
             nEnergy = nETank + nReserve
@@ -543,6 +580,7 @@ def fixEnergy(items):
             items.remove(cf)
         items.append('{}-CrystalFlash'.format(maxCf))
     return items
+
 
 def dumpErrorMsg(outFileName, msg):
     print("DIAG: " + msg)

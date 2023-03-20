@@ -1,5 +1,6 @@
 
-import sys, random
+import sys
+import random
 from collections import defaultdict
 from rando.Items import ItemManager
 from utils.utils import getRangeDict, chooseFromRange
@@ -8,6 +9,8 @@ from rando.ItemLocContainer import ItemLocation
 # Holder for settings and a few utility functions related to them
 # (especially for plando/rando).
 # Holds settings not related to graph layout.
+
+
 class RandoSettings(object):
     def __init__(self, maxDiff, progSpeed, progDiff, qty, restrictions,
                  superFun, runtimeLimit_s, plandoSettings, minDiff):
@@ -41,9 +44,10 @@ class RandoSettings(object):
     def getExcludeItems(self, locations):
         if not self.isPlandoRando():
             return None
-        exclude = {'alreadyPlacedItems': defaultdict(int), 'forbiddenItems': []}
+        exclude = {'alreadyPlacedItems': defaultdict(
+            int), 'forbiddenItems': []}
         # locsItems is a dict {'loc name': 'item type'}
-        for locName,itemType in self.plandoSettings["locsItems"].items():
+        for locName, itemType in self.plandoSettings["locsItems"].items():
             if not any(loc.Name == locName for loc in locations):
                 continue
             exclude['alreadyPlacedItems'][itemType] += 1
@@ -56,7 +60,7 @@ class RandoSettings(object):
     def collectAlreadyPlacedItemLocations(self, container):
         if not self.isPlandoRando():
             return
-        for locName,itemType in self.plandoSettings["locsItems"].items():
+        for locName, itemType in self.plandoSettings["locsItems"].items():
             if not any(loc.Name == locName for loc in container.unusedLocations):
                 continue
             item = container.getNextItemInPool(itemType)
@@ -66,15 +70,18 @@ class RandoSettings(object):
             container.collect(itemLoc, pickup=False)
 
 # Holds settings and utiliy functions related to graph layout
+
+
 class GraphSettings(object):
     def __init__(self, startAP, areaRando, lightAreaRando,
-                 bossRando, escapeRando, minimizerN, dotFile,
+                 bossRando, enemyRando, escapeRando, minimizerN, dotFile,
                  doorsColorsRando, allowGreyDoors, tourian,
                  plandoRandoTransitions):
         self.startAP = startAP
         self.areaRando = areaRando
         self.lightAreaRando = lightAreaRando
         self.bossRando = bossRando
+        self.enemyRando = enemyRando
         self.escapeRando = escapeRando
         self.minimizerN = minimizerN
         self.dotFile = dotFile
@@ -88,6 +95,8 @@ class GraphSettings(object):
 
 # algo settings depending on prog speed (slowest to fastest+variable,
 # other "speeds" are actually different algorithms)
+
+
 class ProgSpeedParameters(object):
     def __init__(self, restrictions, nLocs):
         self.restrictions = restrictions
@@ -95,11 +104,11 @@ class ProgSpeedParameters(object):
 
     def getVariableSpeed(self):
         ranges = getRangeDict({
-            'slowest':7,
-            'slow':20,
-            'medium':35,
-            'fast':27,
-            'fastest':11
+            'slowest': 7,
+            'slow': 20,
+            'medium': 35,
+            'fast': 27,
+            'fastest': 11
         })
         return chooseFromRange(ranges)
 
@@ -136,13 +145,13 @@ class ProgSpeedParameters(object):
     def getItemLimit(self, progSpeed):
         itemLimit = self.nLocs
         if self.isSlow(progSpeed):
-            itemLimit = int(self.nLocs*0.209) # 21 for 105
+            itemLimit = int(self.nLocs*0.209)  # 21 for 105
         elif progSpeed == 'medium':
-            itemLimit = int(self.nLocs*0.095) # 9 for 105
+            itemLimit = int(self.nLocs*0.095)  # 9 for 105
         elif progSpeed == 'fast':
-            itemLimit = int(self.nLocs*0.057) # 5 for 105
+            itemLimit = int(self.nLocs*0.057)  # 5 for 105
         elif progSpeed == 'fastest':
-            itemLimit = int(self.nLocs*0.019) # 1 for 105
+            itemLimit = int(self.nLocs*0.019)  # 1 for 105
         minLimit = itemLimit - int(itemLimit/5)
         maxLimit = itemLimit + int(itemLimit/5)
         if minLimit == maxLimit:
@@ -166,7 +175,7 @@ class ProgSpeedParameters(object):
     def getProgressionItemTypes(self, progSpeed):
         progTypes = ItemManager.getProgTypes()
         if self.restrictions.isLateDoors():
-            progTypes += ['Wave','Spazer','Plasma']
+            progTypes += ['Wave', 'Spazer', 'Plasma']
         progTypes.append('Charge')
         if progSpeed == 'slowest' and self.restrictions.split != "Chozo":
             return progTypes
@@ -189,7 +198,7 @@ class ProgSpeedParameters(object):
         else:
             progTypes.remove('SpeedBooster')
         if progSpeed == 'fastest':
-            return progTypes # only morph, varia, gravity
+            return progTypes  # only morph, varia, gravity
         raise RuntimeError("Unknown prog speed " + progSpeed)
 
     def getPossibleSoftlockProb(self, progSpeed):
@@ -208,53 +217,53 @@ class ProgSpeedParameters(object):
     def getChooseLocDict(self, progDiff):
         if progDiff == 'normal':
             return {
-                'Random' : 1,
-                'MinDiff' : 0,
-                'MaxDiff' : 0
+                'Random': 1,
+                'MinDiff': 0,
+                'MaxDiff': 0
             }
         elif progDiff == 'easier':
             return {
-                'Random' : 2,
-                'MinDiff' : 1,
-                'MaxDiff' : 0
+                'Random': 2,
+                'MinDiff': 1,
+                'MaxDiff': 0
             }
         elif progDiff == 'harder':
             return {
-                'Random' : 2,
-                'MinDiff' : 0,
-                'MaxDiff' : 1
+                'Random': 2,
+                'MinDiff': 0,
+                'MaxDiff': 1
             }
 
     def getChooseItemDict(self, progSpeed):
         if progSpeed == 'slowest':
             return {
-                'MinProgression' : 1,
-                'Random' : 2,
-                'MaxProgression' : 0
+                'MinProgression': 1,
+                'Random': 2,
+                'MaxProgression': 0
             }
         elif progSpeed == 'slow':
             return {
-                'MinProgression' : 25,
-                'Random' : 75,
-                'MaxProgression' : 0
+                'MinProgression': 25,
+                'Random': 75,
+                'MaxProgression': 0
             }
         elif progSpeed == 'medium':
             return {
-                'MinProgression' : 0,
-                'Random' : 1,
-                'MaxProgression' : 0
+                'MinProgression': 0,
+                'Random': 1,
+                'MaxProgression': 0
             }
         elif progSpeed == 'fast':
             return {
-                'MinProgression' : 0,
-                'Random' : 85,
-                'MaxProgression' : 15
+                'MinProgression': 0,
+                'Random': 85,
+                'MaxProgression': 15
             }
         elif progSpeed == 'fastest':
             return {
-                'MinProgression' : 0,
-                'Random' : 2,
-                'MaxProgression' : 1
+                'MinProgression': 0,
+                'Random': 2,
+                'MaxProgression': 1
             }
 
     def getSpreadFactor(self, progSpeed):
