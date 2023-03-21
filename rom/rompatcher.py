@@ -159,8 +159,8 @@ class RomPatcher:
             # skip Tourian entrance full refill if not area rando
             # (we actually overwrite code, so we actually decide the condition before writing this time)
             self.romOptions.write("fastTourianSkipRefill", 0x60) # RTS
-        if self.settings["enemyRando"]:
-            self.randomizeEnemies(self.settings["itemLocs"])
+        if self.settings["enemyRando"] != 'off':
+            self.randomizeEnemies(self.settings["itemLocs"], self.settings["enemyRando"])
         # write seed data
         self.writeObjectives(self.settings["itemLocs"], self.settings["tourian"])
         self.writeItemsLocs(self.settings["itemLocs"])
@@ -253,7 +253,8 @@ class RomPatcher:
         # Get rid of locked enemy doors
         self.romFile.writeByte(0x00, ptr+2)
 
-    def randomizeEnemies(self, itemLocs) -> None:
+    def randomizeEnemies(self, itemLocs, difficulty) -> None:
+        EnemyManager.setDifficulty(difficulty)
         for itemLoc in itemLocs:
             rooms = itemLoc.Location.NearbyRoomsWithSprites
             for room in rooms:

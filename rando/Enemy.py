@@ -27,10 +27,12 @@ class EnemyManager:
         'STOKE': Enemy(
             Name='Mini-Crocomire',
             Code=0xCEFF,
+            Difficulty=40,
         ),
         'KAME': Enemy(
             Name='Tatori',
             Code=0xCF3F,
+            Difficulty=5,
         ),
         'YTatori': Enemy(
             Name='Young Tatori',
@@ -43,36 +45,43 @@ class EnemyManager:
             Code=0xCFBF,
             Speed=0x0002,
             Speed2=0x0001,
+            Difficulty=40,
         ),
         'SABOTEN': Enemy(
             Name='Cacatac',
             Code=0xCFFF,
             Speed=0x0000,
             Speed2=0x0301,
+            Difficulty=15,
         ),
         'TOGE': Enemy(
             Name='Owtch',
             Code=0xD03F,
             Speed=0x0100,
             Speed2=0x0108,
+            Difficulty=30
         ),
         'MERO': Enemy(
             Name='Mellow',
             Code=0xD0FF,
+            Difficulty=5,
         ),
         'MELLA': Enemy(
             Name='Mella',
             Code=0xD13F,
+            Difficulty=10,
         ),
         'MEMU': Enemy(
             Name='Memu',
             Code=0xD17F,
+            Difficulty=10,
         ),
         'MULTI': Enemy(
             Name='Multiviola',
             Code=0xD1BF,
             Speed=0x00F0,
             Speed2=0x0003,
+            Difficulty=10,
         ),
         'POLYP': Enemy(
             Name='Polyp',
@@ -85,18 +94,22 @@ class EnemyManager:
         'RIO': Enemy(
             Name='Rio',
             Code=0xD27F,
+            Difficulty=5,
         ),
         'SQUEEWPT': Enemy(
             Name='Squeept',
             Code=0xD2BF,
+            Difficulty=10
         ),
         'GERUDA': Enemy(
             Name='Geruta',
             Code=0xD2FF,
+            Difficulty=15
         ),
         'HOLTZ': Enemy(
             Name='Holtz',
             Code=0xD33F,
+            Difficulty=20
         ),
         'OUM': Enemy(
             Name='Oum',
@@ -105,12 +118,14 @@ class EnemyManager:
             Speed2=0x0000,
             SpecialGFX=0x0004,
             Special=0xA800,
+            Difficulty=30,
         ),
         'HIRU': Enemy(
             Name='Chute',
             Code=0xD3BF,
             Speed=0x0204,
             Speed2=0x0000,
+            Difficulty=15,
         ),
         'GRIPPER': Enemy(
             Name='Gripper',
@@ -133,6 +148,7 @@ class EnemyManager:
         'DRAGON': Enemy(
             Name='Dragon',
             Code=0xD4BF,
+            Difficulty=50
         ),
         'SHUTTER2': Enemy(
             Name='Kamer',
@@ -161,6 +177,7 @@ class EnemyManager:
         'KANI': Enemy(
             Name='Sciser',
             Code=0xD77F,
+            Difficulty=5,
         ),
         'OUMU': Enemy(
             Name='Zero',
@@ -189,22 +206,27 @@ class EnemyManager:
         'SSIDE': Enemy(
             Name='Sidehopper',
             Code=0xD93F,
+            Difficulty=5,
         ),
         'SDEATH': Enemy(
             Name='Desgeega',
             Code=0xD97F,
+            Difficulty=15
         ),
         'BSIDE1': Enemy(
             Name='Big Sidehopper',
             Code=0xD9BF,
+            Difficulty=40
         ),
         'BSIDE2': Enemy(
             Name='Big Sidehopper',
             Code=0xD9FF,
+            Difficulty=120
         ),
         'DESSGEEGA': Enemy(
             Name='Big Desgeega',
             Code=0xDA3F,
+            Difficulty=80
         ),
         'ZOA': Enemy(
             Name='Zoa',
@@ -215,6 +237,7 @@ class EnemyManager:
             Code=0xDABF,
             Speed=0x0002,
             Speed2=0x0006,
+            Difficulty=5,
         ),
         'BANG': Enemy(
             Name='Bang',
@@ -250,8 +273,8 @@ class EnemyManager:
         'NOVA': Enemy(
             Name='Norfair Geemer',
             Code=0xDCBF,
-            Speed2=0x0000,
-            SpecialGFX=0x0004,
+            Speed=0x0002,
+            Speed2=0x0004,
         ),
         'ZOOMER': Enemy(
             Name='Geemer',
@@ -264,6 +287,7 @@ class EnemyManager:
         'METROID': Enemy(
             Name='Metroid',
             Code=0xDD7F,
+            Difficulty=80
         ),
         'RSTONE': Enemy(
             Name='Boulder',
@@ -282,6 +306,7 @@ class EnemyManager:
         'HIBASHI': Enemy(
             Name='Hibashi',
             Code=0xE07F,
+            Difficulty=20
         ),
         'PUROMI': Enemy(
             Name='Puromi',
@@ -292,6 +317,7 @@ class EnemyManager:
         'SCLAYD': Enemy(
             Name='Mini-Kraid',
             Code=0xE0FF,
+            Difficulty=40
         ),
         'EBI': Enemy(
             Name='Evir',
@@ -306,7 +332,7 @@ class EnemyManager:
         'FUNE': Enemy(
             Name='Fune',
             Code=0xE6FF,
-            Speed=0x0000,
+            Speed=0x0000 + (random.randint(0,1)*0x10),
             Speed2=0x5007,
             SpecialGFX=0x0000,
             Special=0xA000,
@@ -314,7 +340,7 @@ class EnemyManager:
         'NAMI': Enemy(
             Name='Namihe',
             Code=0xE73F,
-            Speed=0x1001,
+            Speed=0x1001 + (random.randint(0,1)*0x10),
             Speed2=0x5005,
             SpecialGFX=0x0000,
             Special=0xA000,
@@ -356,6 +382,7 @@ class EnemyManager:
         'ROBO': Enemy(
             Name='Work Robot',
             Code=0xE8FF,
+            Difficulty=10
         ),
         # 'ROBO2	Work': Enemy(
         # Name = 'Robot',
@@ -366,20 +393,24 @@ class EnemyManager:
             Code=0xE97F,
             Speed=0x000A,
             Speed2=0x0000,
+            Difficulty=20
         ),
         'NDRA': Enemy(
             Name='Alcoon',
             Code=0xE9BF,
+            Difficulty=50
         ),
         'ATOMIC': Enemy(
             Name='Atomic',
             Code=0xE9FF,
             Speed=0x0000,
             Speed2=0x0008,
+            Difficulty=15
         ),
         'SPA': Enemy(
             Name='Sparks',
             Code=0xEA3F,
+            Speed=0x0400
         ),
         'KOMA': Enemy(
             Name='Koma',
@@ -392,10 +423,12 @@ class EnemyManager:
         'HACHI2': Enemy(
             Name='Greenish Kihunter',
             Code=0xEB3F,
+            Difficulty=30
         ),
         'HACHI3': Enemy(
             Name='Red Kihunter',
             Code=0xEBBF,
+            Difficulty=80
         ),
         # 'DORI': Enemy(
         # Name='Shaktool',
@@ -439,6 +472,7 @@ class EnemyManager:
             Speed=0x8000,
             Speed2=0x0018,
             SpecialGFX=0x0004,
+            Difficulty=40,
         ),
         'BATTA1Na': Enemy(
             Name='Gold Zebesian',
@@ -446,6 +480,7 @@ class EnemyManager:
             Speed=0x8000,
             Speed2=0x0018,
             SpecialGFX=0x0004,
+            Difficulty=100,
         ),
         'BATTA1Ma': Enemy(
             Name='Pink Zebesian',
@@ -453,6 +488,7 @@ class EnemyManager:
             Speed=0x8000,
             Speed2=0x0018,
             SpecialGFX=0x0004,
+            Difficulty=120
         ),
         'BATTA1Tu': Enemy(
             Name='Black Zebesian',
@@ -460,6 +496,7 @@ class EnemyManager:
             Speed=0x8000,
             Speed2=0x0018,
             SpecialGFX=0x0004,
+            Difficulty=120
         ),
         'BATTA2': Enemy(
             Name='Grey Zebesian',
@@ -467,6 +504,7 @@ class EnemyManager:
             Speed=0x8000,
             Speed2=0x0018,
             SpecialGFX=0x0004,
+            Difficulty=80
         ),
         'BATTA2Br': Enemy(
             Name='Green Zebesian',
@@ -474,6 +512,7 @@ class EnemyManager:
             Speed=0x8000,
             Speed2=0x0018,
             SpecialGFX=0x0004,
+            Difficulty=20
         ),
         'BATTA2No': Enemy(
             Name='Red Zebesian',
@@ -481,6 +520,7 @@ class EnemyManager:
             Speed=0x8000,
             Speed2=0x0018,
             SpecialGFX=0x0004,
+            Difficulty=40
         ),
         'BATTA2Na': Enemy(
             Name='Gold Zebesian',
@@ -488,6 +528,7 @@ class EnemyManager:
             Speed=0x8000,
             Speed2=0x0018,
             SpecialGFX=0x0004,
+            Difficulty=100
         ),
         'BATTA2Ma': Enemy(
             Name='Pink Zebesian',
@@ -495,6 +536,7 @@ class EnemyManager:
             Speed=0x8000,
             Speed2=0x0018,
             SpecialGFX=0x0004,
+            Difficulty=120
         ),
         'BATTA2Tu': Enemy(
             Name='Black Zebesian',
@@ -502,6 +544,7 @@ class EnemyManager:
             Speed=0x8000,
             Speed2=0x0018,
             SpecialGFX=0x0004,
+            Difficulty=120
         ),
         'BATTA3': Enemy(
             Name='Grey Zebesian',
@@ -516,6 +559,7 @@ class EnemyManager:
             Speed=0x8000,
             Speed2=0x0018,
             SpecialGFX=0x0004,
+            Difficulty=20
         ),
         'BATTA3No': Enemy(
             Name='Red Zebesian',
@@ -523,6 +567,7 @@ class EnemyManager:
             Speed=0x8000,
             Speed2=0x0018,
             SpecialGFX=0x0004,
+            Difficulty=40
         ),
         'BATTA3Na': Enemy(
             Name='Gold Zebesian',
@@ -530,6 +575,7 @@ class EnemyManager:
             Speed=0x8000,
             Speed2=0x0018,
             SpecialGFX=0x0004,
+            Difficulty=120
         ),
         'BATTA3Ma': Enemy(
             Name='Pink Zebesian',
@@ -537,6 +583,7 @@ class EnemyManager:
             Speed=0x8000,
             Speed2=0x0018,
             SpecialGFX=0x0004,
+            Difficulty=120
         ),
         'BATTA3Tu': Enemy(
             Name='Black Zebesian',
@@ -544,29 +591,37 @@ class EnemyManager:
             Speed=0x8000,
             Speed2=0x0018,
             SpecialGFX=0x0004,
+            Difficulty=120
         )
     }
-    allowedSpawnLevel = 0
+
+    maxSpawnLevel = 0
+    allowMetroids = False
+
+    @staticmethod
+    def setDifficulty(level) -> None:
+        if level == 'hard':
+            EnemyManager.allowMetroids = True
+            EnemyManager.maxSpawnLevel = 80
+        elif level == 'normal':
+            EnemyManager.maxSpawnLevel = 30
 
     @staticmethod
     def setEnemyLvl(item) -> None:
-        # TODO WIP
+        # TODO v1 - this can be fleshed out still
         inc = 0
-        if item.Type in ['Plasma', 'ScrewAttack']:
+        if item.Type in ['ScrewAttack', 'Plasma']:
             inc = 50
-        elif item.Type in ['Wave', 'Ice']:
+        elif item.Type in ['Ice']:
             inc = 30
-        elif item.Type in ['SpaceJump', 'Varia', 'Gravity', 'Spazer']:
+            EnemyManager.allowMetroids = True
+        elif item.Type in ['Wave', 'SpaceJump']:
             inc = 20
-        elif item.Type in ['PowerBomb', 'Charge']:
+        elif item.Type in ['Energy']:
             inc = 10
         elif item.Type not in ['XRayScope', 'Nothing', 'NoEnergy']:
             inc = 5
-        EnemyManager.allowedSpawnLevel += inc
-
-    @staticmethod
-    def getEnemyLvl() -> int:
-        return EnemyManager.allowedSpawnLevel
+        EnemyManager.maxSpawnLevel += inc
 
     @staticmethod
     def getRandomSprite() -> Enemy:
@@ -574,9 +629,12 @@ class EnemyManager:
             _k: enmy for _k, enmy in EnemyManager.Enemies.items() 
             if EnemyManager.enemyFilter(enmy)
         }
-        return random.choice(list(filteredByDifficulty.items()))[1]
+        newEnemy = random.choice(list(filteredByDifficulty.items()))[1]
+        # Turn metroids into mochtroids on normal and easy if we dont have ice beam
+        if EnemyManager.allowMetroids == False and newEnemy.Name == 'Metroid':
+            return Enemy(Name='Mochtroid', Code=0xD8FF)
+        return newEnemy
     
     @staticmethod
     def enemyFilter(enmy) -> bool:
-        # TODO
-        return (EnemyManager.allowedSpawnLevel >= enmy.Difficulty)
+        return (EnemyManager.maxSpawnLevel >= enmy.Difficulty)

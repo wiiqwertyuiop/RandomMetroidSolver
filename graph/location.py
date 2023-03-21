@@ -238,9 +238,9 @@ locationsDict = {
         NearbyRoomsWithSprites=[
             RoomSpriteInfo(0x1A03B5, 0x109326),  # Pop	BR	79E9F [Standard]
             RoomSpriteInfo(0x1A0595, 0x109BC6),  # Pop	BR	79F11 [Standard]
-            RoomSpriteInfo(0x1A020F, 0x108A15),  # Pop	CR	7975C [Standard]
-            RoomSpriteInfo(0x1A014F, 0x1085E1),  # Pop	CR	796BA [Standard]
-            RoomSpriteInfo(0x1A0185, 0x1086FA),  # Pop	CR	792FD [Standard]
+            RoomSpriteInfo(0x1A008F, 0x108427),  # Pop	CR	7975C [Awake]
+            RoomSpriteInfo(0x1A01D3, 0x1088C9),  # Pop	CR	796BA [Awake]
+            RoomSpriteInfo(0x1A0067, 0x108261),  # Pop	CR	792FD [Awake]
         ]
     ),
     "Energy Tank, Brinstar Ceiling":
@@ -256,9 +256,7 @@ locationsDict = {
         Visibility="Hidden",
         Room='Blue Brinstar Energy Tank Room',
         NearbyRoomsWithSprites=[
-            RoomSpriteInfo(0x1A008F, 0x108427),  # Pop	CR	7975C [Awake]
-            RoomSpriteInfo(0x1A01D3, 0x1088C9),  # Pop	CR	796BA [Awake]
-            RoomSpriteInfo(0x1A0067, 0x108261),  # Pop	CR	792FD [Awake]
+
             RoomSpriteInfo(0x1A007D, 0x108364),  # Pop	CR	79879 [Standard]
             RoomSpriteInfo(0x1A025F, 0x108B87),  # Pop	CR	798E2 [Standard]
             RoomSpriteInfo(0x1A0043, 0x10819B),  # Pop	CR	79A44 [Events 1]
@@ -1219,9 +1217,9 @@ locationsDict = {
         Visibility="Visible",
         Room='Blue Brinstar Energy Tank Room',
         NearbyRoomsWithSprites=[
-            RoomSpriteInfo(0x1A008F, 0x108427),  # Pop	CR	7975C [Awake]
-            RoomSpriteInfo(0x1A01D3, 0x1088C9),  # Pop	CR	796BA [Awake]
-            RoomSpriteInfo(0x1A0067, 0x108261),  # Pop	CR	792FD [Awake]
+            RoomSpriteInfo(0x1A020F, 0x108A15),  # Pop	CR	7975C [Standard]
+            RoomSpriteInfo(0x1A014F, 0x1085E1),  # Pop	CR	796BA [Standard]
+            RoomSpriteInfo(0x1A0185, 0x1086FA),  # Pop	CR	792FD [Standard]
             RoomSpriteInfo(0x1A007D, 0x108364),  # Pop	CR	79879 [Standard]
             RoomSpriteInfo(0x1A025F, 0x108B87),  # Pop	CR	798E2 [Standard]
             RoomSpriteInfo(0x1A0043, 0x10819B),  # Pop	CR	79A44 [Events 1]

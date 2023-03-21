@@ -309,6 +309,10 @@ def loadRandoPreset(randoPreset, args):
         args.noVariaTweaks = True
     if randoParams.get("maxDifficulty", "infinity") != "infinity":
         args.maxDifficulty = randoParams["maxDifficulty"]
+    if randoParams.get("enemyRandomization") in ['off', 'easy', 'normal', 'hard']:
+        args.enemy = randoParams["enemyRandomization"]
+    else:
+        args.enemy = 'off'
     if randoParams.get("suitsRestriction", "off") != "off":
         if randoParams["suitsRestriction"] == "on":
             args.suitsRestriction = True
@@ -345,7 +349,6 @@ def loadRandoPreset(randoPreset, args):
     args.doorsColorsRando = convertParam(randoParams, "doorsColorsRando")
     args.allowGreyDoors = convertParam(randoParams, "allowGreyDoors")
     args.bosses = convertParam(randoParams, "bossRandomization")
-    args.enemy = convertParam(randoParams, "enemyRandomization")
 
     if randoParams.get("funCombat", "off") != "off":
         if randoParams["funCombat"] == "on":

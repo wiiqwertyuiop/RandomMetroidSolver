@@ -26,7 +26,7 @@
     "doorsColorsRando": "off",
     "allowGreyDoors": "off",
     "bossRandomization": "off",
-    "enemyRandomization": "on",
+    "enemyRandomization": "easy",
     "minimizer": "off",
     "minimizerQty": "45",
     "tourian": "Vanilla",

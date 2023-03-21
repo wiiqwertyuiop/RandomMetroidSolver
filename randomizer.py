@@ -86,7 +86,7 @@ if __name__ == "__main__":
     parser.add_argument('--bosses', help="randomize bosses",
                         dest='bosses', nargs='?', const=True, default=False)
     parser.add_argument('--enemy', help="randomize enemies",
-                        dest='enemy', nargs='?', const=True, default=False)
+                        dest='enemy', nargs='?', choices=['off', 'easy', 'normal', 'hard'], default='off')
     parser.add_argument('--minimizer', help="minimizer mode: area and boss mixed together. arg is number of non boss locations",
                         dest='minimizerN', nargs='?', const=35, default=None,
                         choices=[str(i) for i in range(30,101)]+["random"])
@@ -376,12 +376,6 @@ if __name__ == "__main__":
         args.bosses = bool(random.getrandbits(1))
     logger.debug("bosses: {}".format(args.bosses))
 
-    enemiesRandom = False
-    if args.enemy == 'random':
-        enemiesRandom = True
-        args.enemy = bool(random.getrandbits(1))
-    logger.debug("enemies: {}".format(args.enemy))
-
     if args.escapeRando == 'random':
         args.escapeRando = bool(random.getrandbits(1))
     logger.debug("escapeRando: {}".format(args.escapeRando))
@@ -485,7 +479,7 @@ if __name__ == "__main__":
             seedCode = 'SX'
     if args.bosses == True and bossesRandom == False:
         seedCode = 'B'+seedCode
-    if args.enemy == True and enemiesRandom == False:
+    if args.enemy != 'off':
         seedCode = 'E'+seedCode
     if args.doorsColorsRando == True and doorsColorsRandom == False:
         seedCode = 'D'+seedCode
