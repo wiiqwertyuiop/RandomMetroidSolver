@@ -237,7 +237,6 @@ class EnemyManager:
             Code=0xDABF,
             Speed=0x0002,
             Speed2=0x0006,
-            Difficulty=5,
         ),
         'BANG': Enemy(
             Name='Bang',

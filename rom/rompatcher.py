@@ -4,7 +4,7 @@ from math import ceil
 from enum import IntFlag
 from rando.Items import ItemManager
 from rando.Enemy import EnemyManager
-from rando.RoomSpriteInfo import getTourianRooms
+from rando.RoomSpriteInfo import pathConnector
 from rom.compression import Compressor
 from rom.ips import IPS_Patch
 from utils.doorsmanager import DoorsManager, IndicatorFlag
@@ -254,23 +254,26 @@ class RomPatcher:
         self.romFile.writeByte(0x00, ptr+2)
 
     def randomizeEnemies(self, itemLocs, difficulty) -> None:
+        completedRooms = []
         EnemyManager.setDifficulty(difficulty)
+        # Loop through all item locations
         for itemLoc in itemLocs:
-            rooms = itemLoc.Location.NearbyRoomsWithSprites
-            for room in rooms:
-                self.randomizeRoomEnemies(room)
+            paths = itemLoc.Location.path
+            # Get the path we took to get here
+            for path in paths:
+                if path.Name not in pathConnector:
+                    continue
+                rooms = pathConnector.pop(path.Name)
+                # If it is a new path, go through the rooms and randomize the enemies
+                for room in rooms:
+                    if room in completedRooms:
+                        continue
+                    self.randomizeRoomEnemies(room)
+                    completedRooms.append(room)
+            # Always increase enemy level on a new pickup
             EnemyManager.setEnemyLvl(itemLoc.Item)
-        self.randomizeTourianRooms()
         self.romFile.writeWord(0xEAEA, 0x144B81)  # Let ROBOs walk
         print("Enemies randomized")
-    
-    def randomizeTourianRooms(self) -> None:
-        # Randomize tourian rooms.
-        # This is because we don't know when along we will be in Tourian
-        # We also want to give the max difficulty here
-        tourianRooms = getTourianRooms()
-        for room in tourianRooms:
-            self.randomizeRoomEnemies(room)
 
     def writeItem(self, itemLoc):
         loc = itemLoc.Location

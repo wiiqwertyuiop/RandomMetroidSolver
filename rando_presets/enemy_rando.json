@@ -21,7 +21,7 @@
     ],
     "objectiveRandom": "false",
     "nbObjective": 4,
-    "areaRandomization": "off",
+    "areaRandomization": "full",
     "areaLayout": "on",
     "doorsColorsRando": "off",
     "allowGreyDoors": "off",
