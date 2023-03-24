@@ -596,6 +596,7 @@ class EnemyManager:
 
     maxSpawnLevel = 0
     allowMetroids = False
+    roomReq = []
 
     @staticmethod
     def setDifficulty(level) -> None:
@@ -607,7 +608,6 @@ class EnemyManager:
 
     @staticmethod
     def setEnemyLvl(item) -> None:
-        # TODO v1 - this can be fleshed out still
         inc = 0
         if item.Type in ['ScrewAttack', 'Plasma']:
             inc = 50
@@ -637,3 +637,13 @@ class EnemyManager:
     @staticmethod
     def enemyFilter(enmy) -> bool:
         return (EnemyManager.maxSpawnLevel >= enmy.Difficulty)
+    
+    @staticmethod
+    def checkExclusions(roomPtr, enemyID) -> bool:
+        if (enemyID >= 0xD4FF and enemyID < 0xD5FF) or (
+            'CeilingDBoost' in EnemyManager.roomReq and roomPtr == 0x1A0389 and enemyID == 0xD27F
+        ) or ('XrayDboost' in EnemyManager.roomReq and roomPtr == 0x1A0871) or (
+            'NorfairReserveDBoost' in EnemyManager.roomReq and roomPtr == 0x1A09D9 and enemyID == 0xD63F
+        ) or ('CrocPBsDBoost' in EnemyManager.roomReq and roomPtr == 0x1A07DF):
+            return False;
+        return True;

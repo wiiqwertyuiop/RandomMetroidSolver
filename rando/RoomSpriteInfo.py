@@ -6,7 +6,7 @@ class RoomSpriteInfo:
         self.spriteData = spriteData
 
 
-pathConnector = {
+SpritePathConnector = {
     "Landing Site": [
         RoomSpriteInfo(0x1A0185, 0x1086FA),  # Pop	CR	792FD [Standard]
         RoomSpriteInfo(0x1A0067, 0x108261),  # Pop	CR	792FD [Awake]

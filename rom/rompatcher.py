@@ -4,7 +4,7 @@ from math import ceil
 from enum import IntFlag
 from rando.Items import ItemManager
 from rando.Enemy import EnemyManager
-from rando.RoomSpriteInfo import pathConnector
+from rando.RoomSpriteInfo import SpritePathConnector
 from rom.compression import Compressor
 from rom.ips import IPS_Patch
 from utils.doorsmanager import DoorsManager, IndicatorFlag
@@ -218,10 +218,11 @@ class RomPatcher:
             ret.append(self.altLocsAddresses[loc.Name])
         return ret
 
-    def changeHeaderData(self, ptr) -> dict:
+    def changeHeaderData(self, headerData) -> dict:
         replaceMap = {}
+        ptr = headerData
         while (oldEnemyID := self.romFile.readWord(ptr)) != 0xFFFF:
-            if oldEnemyID < 0xD4FF or oldEnemyID > 0xD5FF:
+            if EnemyManager.checkExclusions(headerData, oldEnemyID):
                 newSprite = EnemyManager.getRandomSprite()
                 replaceMap[oldEnemyID] = newSprite
                 self.romFile.writeWord(newSprite.Code, ptr)
@@ -261,16 +262,16 @@ class RomPatcher:
             paths = itemLoc.Location.path
             # Get the path we took to get here
             for path in paths:
-                if path.Name not in pathConnector:
+                if path.Name not in SpritePathConnector:
                     continue
-                rooms = pathConnector.pop(path.Name)
+                EnemyManager.roomReq = itemLoc.Location.difficulty.knows
+                rooms = SpritePathConnector.pop(path.Name)
                 # If it is a new path, go through the rooms and randomize the enemies
                 for room in rooms:
                     if room in completedRooms:
                         continue
                     self.randomizeRoomEnemies(room)
                     completedRooms.append(room)
-            # Always increase enemy level on a new pickup
             EnemyManager.setEnemyLvl(itemLoc.Item)
         self.romFile.writeWord(0xEAEA, 0x144B81)  # Let ROBOs walk
         print("Enemies randomized")
