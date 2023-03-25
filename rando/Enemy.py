@@ -31,12 +31,12 @@ class EnemyManager:
         'STOKE': Enemy(
             Name='Mini-Crocomire',
             Code=0xCEFF,
-            Difficulty=40,
+            Difficulty=5,
         ),
         'KAME': Enemy(
             Name='Tatori',
             Code=0xCF3F,
-            Difficulty=5,
+            minETanks=2,
             spawnMaximum=1,
         ),
         'YTatori': Enemy(
@@ -50,32 +50,31 @@ class EnemyManager:
             Code=0xCFBF,
             Speed=0x0002,
             Speed2=0x0001,
-            Difficulty=40,
+            Difficulty=5,
         ),
         'SABOTEN': Enemy(
             Name='Cacatac',
             Code=0xCFFF,
             Speed=0x0000,
             Speed2=0x0301,
-            Difficulty=15,
+            Difficulty=10,
         ),
         'TOGE': Enemy(
             Name='Owtch',
             Code=0xD03F,
             Speed=0x0100,
             Speed2=0x0108,
-            Difficulty=30,
+            Difficulty=10,
             minETanks=1
         ),
         'MERO': Enemy(
             Name='Mellow',
             Code=0xD0FF,
-            Difficulty=5,
         ),
         'MELLA': Enemy(
             Name='Mella',
             Code=0xD13F,
-            Difficulty=10,
+            Difficulty=5,
         ),
         'MEMU': Enemy(
             Name='Memu',
@@ -125,7 +124,7 @@ class EnemyManager:
             Speed2=0x0000,
             SpecialGFX=0x0004,
             Special=0xA800,
-            Difficulty=30,
+            Difficulty=25,
             minETanks=1
         ),
         'HIRU': Enemy(
@@ -133,7 +132,7 @@ class EnemyManager:
             Code=0xD3BF,
             Speed=0x0204,
             Speed2=0x0000,
-            Difficulty=15,
+            Difficulty=10,
         ),
         'GRIPPER': Enemy(
             Name='Gripper',
@@ -146,6 +145,7 @@ class EnemyManager:
             Code=0xD43F,
             Speed=0x0040,
             Speed2=0x0000,
+            Difficulty=5,
         ),
         'RIPPER': Enemy(
             Name='Ripper',
@@ -156,7 +156,7 @@ class EnemyManager:
         'DRAGON': Enemy(
             Name='Dragon',
             Code=0xD4BF,
-            Difficulty=50
+            Difficulty=30
         ),
         'SHUTTER2': Enemy(
             Name='Kamer',
@@ -181,12 +181,13 @@ class EnemyManager:
             Code=0xD6FF,
             Speed=0x0110,
             Speed2=0x0210,
-            Difficulty=10,
+            Difficulty=15,
         ),
         'KANI': Enemy(
             Name='Sciser',
             Code=0xD77F,
-            Difficulty=5,
+            Difficulty=10,
+            minETanks=1
         ),
         'OUMU': Enemy(
             Name='Zero',
@@ -234,8 +235,8 @@ class EnemyManager:
             Name='Big Sidehopper',
             Code=0xD9FF,
             Difficulty=120,
-            spawnMaximum=3,
-            minETanks=2
+            spawnMaximum=2,
+            minETanks=4
         ),
         'DESSGEEGA': Enemy(
             Name='Big Desgeega',
@@ -321,24 +322,31 @@ class EnemyManager:
         'HIBASHI': Enemy(
             Name='Hibashi',
             Code=0xE07F,
-            Difficulty=20
+            Difficulty=10,
+            minETanks=1
         ),
         'PUROMI': Enemy(
             Name='Puromi',
             Code=0xE0BF,
             Speed=0x4010,
             Speed2=0x2001,
+            Difficulty=10,
+            minETanks=1
         ),
         'SCLAYD': Enemy(
             Name='Mini-Kraid',
             Code=0xE0FF,
-            Difficulty=40
+            Difficulty=35,
+            spawnMaximum=4,
+            minETanks=2
         ),
         'EBI': Enemy(
             Name='Evir',
             Code=0xE63F,
             Speed=0x0000,
             Speed2=0xF808,
+            Difficulty=20,
+            minETanks=2
         ),
         'EYE': Enemy(
             Name='Eye',
@@ -347,22 +355,25 @@ class EnemyManager:
         'FUNE': Enemy(
             Name='Fune',
             Code=0xE6FF,
-            Speed=0x0000 + (random.randint(0,1)*0x10),
+            Speed=0x0000,
             Speed2=0x5007,
             SpecialGFX=0x0000,
             Special=0xA000,
+            Difficulty=5
         ),
         'NAMI': Enemy(
             Name='Namihe',
             Code=0xE73F,
-            Speed=0x1001 + (random.randint(0,1)*0x10),
+            Speed=0x1001,
             Speed2=0x5005,
             SpecialGFX=0x0000,
             Special=0xA000,
+            Difficulty=5
         ),
         'GAI': Enemy(
             Name='Coven',
             Code=0xE77F,
+            Difficulty=10,
         ),
         'HAND': Enemy(
             Name='Yapping Maw',
@@ -383,10 +394,12 @@ class EnemyManager:
             Code=0xE83F,
             Speed=0x0000,
             Speed2=0x3A60,
+            Difficulty=10
         ),
         'NOMI': Enemy(
             Name='Beetom',
             Code=0xE87F,
+            Difficulty=5
         ),
         # 'PUU': Enemy(
         # Name = 'Powamp',
@@ -409,12 +422,12 @@ class EnemyManager:
             Code=0xE97F,
             Speed=0x000A,
             Speed2=0x0000,
-            Difficulty=20
+            Difficulty=10
         ),
         'NDRA': Enemy(
             Name='Alcoon',
             Code=0xE9BF,
-            Difficulty=50
+            Difficulty=30
         ),
         'ATOMIC': Enemy(
             Name='Atomic',
@@ -435,6 +448,7 @@ class EnemyManager:
         'HACHI1': Enemy(
             Name='Green Kihunter',
             Code=0xEABF,
+            Difficulty=5
         ),
         'HACHI2': Enemy(
             Name='Greenish Kihunter',
@@ -663,9 +677,9 @@ class EnemyManager:
         elif item.Type in ['Ice']:
             inc = 20
             EnemyManager.allowMetroids = True
-        elif item.Type in ['Wave', 'SpaceJump']:
+        elif item.Type in ['Wave']:
             inc = 10
-        elif item.Type in ['Energy']:
+        elif item.Type in ['Energy', 'SpaceJump']:
             inc = 5
             EnemyManager.ETanks += 1
         elif item.Type not in ['XRayScope', 'Nothing', 'NoEnergy']:
@@ -691,15 +705,17 @@ class EnemyManager:
             return False
         elif EnemyManager.roomDetails["doorSpawn"] and EnemyManager.ETanks < 3:
             return 5 > enmy.Difficulty
+        elif ["IceHellRun", "MainUpperNorfairHellRun", "LowerNorfairHellRun"] in EnemyManager.roomDetails["knows"]:
+            return 15 > enmy.Difficulty
         return EnemyManager.maxEnemyDifficulty >= enmy.Difficulty
 
     @staticmethod
     def checkExclusions(roomPtr, enemyID) -> bool:
         # Enemies we skip over
         if (enemyID >= 0xD4FF and enemyID < 0xD5FF) or (
-            'CeilingDBoost' in EnemyManager.roomDetails and roomPtr == 0x1A0389 and enemyID == 0xD27F
-        ) or ('XrayDboost' in EnemyManager.roomDetails and roomPtr == 0x1A0871) or (
-            'NorfairReserveDBoost' in EnemyManager.roomDetails and roomPtr == 0x1A09D9 and enemyID == 0xD63F
-        ) or ('CrocPBsDBoost' in EnemyManager.roomDetails and roomPtr == 0x1A07DF):
+            'CeilingDBoost' in EnemyManager.roomDetails["knows"] and roomPtr == 0x1A0389 and enemyID == 0xD27F
+        ) or ('XrayDboost' in EnemyManager.roomDetails["knows"] and roomPtr == 0x1A0871) or (
+            'NorfairReserveDBoost' in EnemyManager.roomDetails["knows"] and roomPtr == 0x1A09D9 and enemyID == 0xD63F
+        ) or ('CrocPBsDBoost' in EnemyManager.roomDetails["knows"] and roomPtr == 0x1A07DF):
             return False;
         return True;
