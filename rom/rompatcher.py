@@ -219,15 +219,17 @@ class RomPatcher:
         return ret
 
     def changeHeaderData(self, headerData) -> dict:
+        index = 0
         replaceMap = {}
         ptr = headerData
         while (oldEnemyID := self.romFile.readWord(ptr)) != 0xFFFF:
             if EnemyManager.checkExclusions(headerData, oldEnemyID):
-                newSprite = EnemyManager.getRandomSprite()
+                newSprite = EnemyManager.getRandomSprite(index)
                 replaceMap[oldEnemyID] = newSprite
                 self.romFile.writeWord(newSprite.Code, ptr)
-                # self.romFile.writeWord(pal, ptr+2) # palette data
+                self.romFile.writeWord(index, ptr+2) # palette data
             ptr += 4
+            index += 1
         return replaceMap
 
     def replaceEnemy(self, ptr, newEnemy) -> None:
@@ -264,12 +266,14 @@ class RomPatcher:
             for path in paths:
                 if path.Name not in SpritePathConnector:
                     continue
-                EnemyManager.roomReq = itemLoc.Location.difficulty.knows
+                EnemyManager.roomDetails["knows"] = itemLoc.Location.difficulty.knows
                 rooms = SpritePathConnector.pop(path.Name)
                 # If it is a new path, go through the rooms and randomize the enemies
                 for room in rooms:
                     if room in completedRooms:
                         continue
+                    EnemyManager.roomDetails["numbOfEnemies"] = room.numbOfEnemies
+                    EnemyManager.roomDetails["doorSpawn"] = room.doorSpawn
                     self.randomizeRoomEnemies(room)
                     completedRooms.append(room)
             EnemyManager.setEnemyLvl(itemLoc.Item)

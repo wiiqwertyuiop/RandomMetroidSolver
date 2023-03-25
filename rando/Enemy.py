@@ -3,9 +3,9 @@ import random
 
 class Enemy:
     __slots__ = ('Name', 'Code', 'Speed', 'Speed2', 'SpecialGFX',
-                 'Special', 'Orientation', 'Difficulty')
+                 'Special', 'Orientation', 'Difficulty', 'minETanks', 'spawnMaximum', 'Type')
 
-    def __init__(self, Name, Code, Speed=0, Speed2=0, SpecialGFX=0, Special=0x2000, Orientation=0, Difficulty=0):
+    def __init__(self, Name, Code, Speed=0, Speed2=0, SpecialGFX=0, Special=0x2000, Orientation=0, Difficulty=0, minETanks=0, spawnMaximum = 99, Type="") -> None:
         self.Name = Name
         self.Code = Code
         self.Speed = Speed
@@ -14,6 +14,10 @@ class Enemy:
         self.Special = Special
         self.Orientation = Orientation
         self.Difficulty = Difficulty
+        self.minETanks = minETanks
+        self.spawnMaximum = spawnMaximum
+        # Future use? 
+        self.Type = Type # Ground, Flying, Wall
 
 
 class EnemyManager:
@@ -33,6 +37,7 @@ class EnemyManager:
             Name='Tatori',
             Code=0xCF3F,
             Difficulty=5,
+            spawnMaximum=1,
         ),
         'YTatori': Enemy(
             Name='Young Tatori',
@@ -59,7 +64,8 @@ class EnemyManager:
             Code=0xD03F,
             Speed=0x0100,
             Speed2=0x0108,
-            Difficulty=30
+            Difficulty=30,
+            minETanks=1
         ),
         'MERO': Enemy(
             Name='Mellow',
@@ -109,7 +115,8 @@ class EnemyManager:
         'HOLTZ': Enemy(
             Name='Holtz',
             Code=0xD33F,
-            Difficulty=20
+            Difficulty=20,
+            minETanks=2
         ),
         'OUM': Enemy(
             Name='Oum',
@@ -119,6 +126,7 @@ class EnemyManager:
             SpecialGFX=0x0004,
             Special=0xA800,
             Difficulty=30,
+            minETanks=1
         ),
         'HIRU': Enemy(
             Name='Chute',
@@ -173,6 +181,7 @@ class EnemyManager:
             Code=0xD6FF,
             Speed=0x0110,
             Speed2=0x0210,
+            Difficulty=10,
         ),
         'KANI': Enemy(
             Name='Sciser',
@@ -202,6 +211,7 @@ class EnemyManager:
         'METMOD': Enemy(
             Name='Mochtroid',
             Code=0xD8FF,
+            minETanks=1
         ),
         'SSIDE': Enemy(
             Name='Sidehopper',
@@ -211,22 +221,27 @@ class EnemyManager:
         'SDEATH': Enemy(
             Name='Desgeega',
             Code=0xD97F,
-            Difficulty=15
+            Difficulty=15,
+            minETanks=1
         ),
         'BSIDE1': Enemy(
             Name='Big Sidehopper',
             Code=0xD9BF,
-            Difficulty=40
+            Difficulty=40,
+            spawnMaximum=4
         ),
         'BSIDE2': Enemy(
             Name='Big Sidehopper',
             Code=0xD9FF,
-            Difficulty=120
+            Difficulty=120,
+            spawnMaximum=3,
+            minETanks=2
         ),
         'DESSGEEGA': Enemy(
             Name='Big Desgeega',
             Code=0xDA3F,
-            Difficulty=80
+            Difficulty=80,
+            minETanks=3,
         ),
         'ZOA': Enemy(
             Name='Zoa',
@@ -256,6 +271,7 @@ class EnemyManager:
             Code=0xDBBF,
             Speed=0x0007,
             Speed2=0x0000,
+            minETanks=2
         ),
         'REFLEC': Enemy(
             Name='Reflec',
@@ -377,6 +393,7 @@ class EnemyManager:
         # Code = 0xE8BF,
         # Speed = 0x0001,
         # 0x0070,
+        # minETanks = 1
         # ),
         'ROBO': Enemy(
             Name='Work Robot',
@@ -427,11 +444,13 @@ class EnemyManager:
         'HACHI3': Enemy(
             Name='Red Kihunter',
             Code=0xEBBF,
-            Difficulty=80
+            Difficulty=80,
+            spawnMaximum=3
         ),
         # 'DORI': Enemy(
         # Name='Shaktool',
         # Code=0xF07F,
+        # minETanks = 1
         # ),
         'ZEB': Enemy(
             Name='Zeb',
@@ -472,6 +491,8 @@ class EnemyManager:
             Speed2=0x0018,
             SpecialGFX=0x0004,
             Difficulty=40,
+            spawnMaximum=3,
+            minETanks=2
         ),
         'BATTA1Na': Enemy(
             Name='Gold Zebesian',
@@ -480,6 +501,8 @@ class EnemyManager:
             Speed2=0x0018,
             SpecialGFX=0x0004,
             Difficulty=100,
+            spawnMaximum=2,
+            minETanks=4
         ),
         'BATTA1Ma': Enemy(
             Name='Pink Zebesian',
@@ -487,7 +510,9 @@ class EnemyManager:
             Speed=0x8000,
             Speed2=0x0018,
             SpecialGFX=0x0004,
-            Difficulty=120
+            Difficulty=120,
+            spawnMaximum=2,
+            minETanks=4
         ),
         'BATTA1Tu': Enemy(
             Name='Black Zebesian',
@@ -495,7 +520,9 @@ class EnemyManager:
             Speed=0x8000,
             Speed2=0x0018,
             SpecialGFX=0x0004,
-            Difficulty=120
+            Difficulty=120,
+            spawnMaximum=2,
+            minETanks=4
         ),
         'BATTA2': Enemy(
             Name='Grey Zebesian',
@@ -503,7 +530,8 @@ class EnemyManager:
             Speed=0x8000,
             Speed2=0x0018,
             SpecialGFX=0x0004,
-            Difficulty=80
+            Difficulty=80,
+            spawnMaximum=3
         ),
         'BATTA2Br': Enemy(
             Name='Green Zebesian',
@@ -519,7 +547,9 @@ class EnemyManager:
             Speed=0x8000,
             Speed2=0x0018,
             SpecialGFX=0x0004,
-            Difficulty=40
+            Difficulty=40,
+            spawnMaximum=3,
+            minETanks=1
         ),
         'BATTA2Na': Enemy(
             Name='Gold Zebesian',
@@ -527,7 +557,9 @@ class EnemyManager:
             Speed=0x8000,
             Speed2=0x0018,
             SpecialGFX=0x0004,
-            Difficulty=100
+            Difficulty=100,
+            spawnMaximum=2,
+            minETanks=4
         ),
         'BATTA2Ma': Enemy(
             Name='Pink Zebesian',
@@ -535,7 +567,9 @@ class EnemyManager:
             Speed=0x8000,
             Speed2=0x0018,
             SpecialGFX=0x0004,
-            Difficulty=120
+            Difficulty=120,
+            spawnMaximum=2,
+            minETanks=4
         ),
         'BATTA2Tu': Enemy(
             Name='Black Zebesian',
@@ -543,7 +577,9 @@ class EnemyManager:
             Speed=0x8000,
             Speed2=0x0018,
             SpecialGFX=0x0004,
-            Difficulty=120
+            Difficulty=120,
+            spawnMaximum=2,
+            minETanks=4
         ),
         'BATTA3': Enemy(
             Name='Grey Zebesian',
@@ -558,7 +594,8 @@ class EnemyManager:
             Speed=0x8000,
             Speed2=0x0018,
             SpecialGFX=0x0004,
-            Difficulty=20
+            Difficulty=20,
+            spawnMaximum=5
         ),
         'BATTA3No': Enemy(
             Name='Red Zebesian',
@@ -566,7 +603,9 @@ class EnemyManager:
             Speed=0x8000,
             Speed2=0x0018,
             SpecialGFX=0x0004,
-            Difficulty=40
+            Difficulty=40,
+            spawnMaximum=3,
+            minETanks=3
         ),
         'BATTA3Na': Enemy(
             Name='Gold Zebesian',
@@ -574,7 +613,9 @@ class EnemyManager:
             Speed=0x8000,
             Speed2=0x0018,
             SpecialGFX=0x0004,
-            Difficulty=120
+            Difficulty=120,
+            spawnMaximum=2,
+            minETanks=4
         ),
         'BATTA3Ma': Enemy(
             Name='Pink Zebesian',
@@ -582,7 +623,9 @@ class EnemyManager:
             Speed=0x8000,
             Speed2=0x0018,
             SpecialGFX=0x0004,
-            Difficulty=120
+            Difficulty=120,
+            spawnMaximum=2,
+            minETanks=4
         ),
         'BATTA3Tu': Enemy(
             Name='Black Zebesian',
@@ -590,60 +633,73 @@ class EnemyManager:
             Speed=0x8000,
             Speed2=0x0018,
             SpecialGFX=0x0004,
-            Difficulty=120
+            Difficulty=120,
+            spawnMaximum=2,
+            minETanks=4
         )
     }
 
-    maxSpawnLevel = 0
+    maxEnemyDifficulty = 0
     allowMetroids = False
-    roomReq = []
+    ETanks = 0
+    roomDetails = {
+        "knows": [],
+        "numbOfEnemies": []
+    }
 
     @staticmethod
     def setDifficulty(level) -> None:
         if level == 'hard':
             EnemyManager.allowMetroids = True
-            EnemyManager.maxSpawnLevel = 80
+            EnemyManager.maxEnemyDifficulty = 80
         elif level == 'normal':
-            EnemyManager.maxSpawnLevel = 30
+            EnemyManager.maxEnemyDifficulty = 30
 
     @staticmethod
     def setEnemyLvl(item) -> None:
         inc = 0
         if item.Type in ['ScrewAttack', 'Plasma']:
-            inc = 50
-        elif item.Type in ['Ice']:
             inc = 30
+        elif item.Type in ['Ice']:
+            inc = 20
             EnemyManager.allowMetroids = True
         elif item.Type in ['Wave', 'SpaceJump']:
-            inc = 20
-        elif item.Type in ['Energy']:
             inc = 10
-        elif item.Type not in ['XRayScope', 'Nothing', 'NoEnergy']:
+        elif item.Type in ['Energy']:
             inc = 5
-        EnemyManager.maxSpawnLevel += inc
+            EnemyManager.ETanks += 1
+        elif item.Type not in ['XRayScope', 'Nothing', 'NoEnergy']:
+            inc = 2
+        EnemyManager.maxEnemyDifficulty += inc
 
     @staticmethod
-    def getRandomSprite() -> Enemy:
+    def getRandomSprite(index) -> Enemy:
         filteredByDifficulty = {
             _k: enmy for _k, enmy in EnemyManager.Enemies.items() 
-            if EnemyManager.enemyFilter(enmy)
+            if EnemyManager.filterSprites(enmy, index)
         }
         newEnemy = random.choice(list(filteredByDifficulty.items()))[1]
-        # Turn metroids into mochtroids on normal and easy if we dont have ice beam
-        if EnemyManager.allowMetroids == False and newEnemy.Name == 'Metroid':
-            return Enemy(Name='Mochtroid', Code=0xD8FF)
         return newEnemy
     
     @staticmethod
-    def enemyFilter(enmy) -> bool:
-        return (EnemyManager.maxSpawnLevel >= enmy.Difficulty)
-    
+    def filterSprites(enmy, index) -> bool:
+        if enmy.spawnMaximum < EnemyManager.roomDetails["numbOfEnemies"][index]:
+            return False
+        elif enmy.minETanks > EnemyManager.ETanks:
+            return False
+        elif EnemyManager.allowMetroids == False and enmy.Name == 'Metroid':
+            return False
+        elif EnemyManager.roomDetails["doorSpawn"] and EnemyManager.ETanks < 3:
+            return 5 > enmy.Difficulty
+        return EnemyManager.maxEnemyDifficulty >= enmy.Difficulty
+
     @staticmethod
     def checkExclusions(roomPtr, enemyID) -> bool:
+        # Enemies we skip over
         if (enemyID >= 0xD4FF and enemyID < 0xD5FF) or (
-            'CeilingDBoost' in EnemyManager.roomReq and roomPtr == 0x1A0389 and enemyID == 0xD27F
-        ) or ('XrayDboost' in EnemyManager.roomReq and roomPtr == 0x1A0871) or (
-            'NorfairReserveDBoost' in EnemyManager.roomReq and roomPtr == 0x1A09D9 and enemyID == 0xD63F
-        ) or ('CrocPBsDBoost' in EnemyManager.roomReq and roomPtr == 0x1A07DF):
+            'CeilingDBoost' in EnemyManager.roomDetails and roomPtr == 0x1A0389 and enemyID == 0xD27F
+        ) or ('XrayDboost' in EnemyManager.roomDetails and roomPtr == 0x1A0871) or (
+            'NorfairReserveDBoost' in EnemyManager.roomDetails and roomPtr == 0x1A09D9 and enemyID == 0xD63F
+        ) or ('CrocPBsDBoost' in EnemyManager.roomDetails and roomPtr == 0x1A07DF):
             return False;
         return True;
