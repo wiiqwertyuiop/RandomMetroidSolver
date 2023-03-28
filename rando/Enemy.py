@@ -234,14 +234,14 @@ class EnemyManager:
         'BSIDE2': Enemy(
             Name='Big Sidehopper',
             Code=0xD9FF,
-            Difficulty=120,
+            Difficulty=75,
             spawnMaximum=2,
             minETanks=4
         ),
         'DESSGEEGA': Enemy(
             Name='Big Desgeega',
             Code=0xDA3F,
-            Difficulty=80,
+            Difficulty=60,
             minETanks=3,
         ),
         'ZOA': Enemy(
@@ -303,7 +303,7 @@ class EnemyManager:
         'METROID': Enemy(
             Name='Metroid',
             Code=0xDD7F,
-            Difficulty=80
+            Difficulty=60
         ),
         'RSTONE': Enemy(
             Name='Boulder',
@@ -458,7 +458,7 @@ class EnemyManager:
         'HACHI3': Enemy(
             Name='Red Kihunter',
             Code=0xEBBF,
-            Difficulty=80,
+            Difficulty=60,
             spawnMaximum=3
         ),
         # 'DORI': Enemy(
@@ -514,7 +514,7 @@ class EnemyManager:
             Speed=0x8000,
             Speed2=0x0018,
             SpecialGFX=0x0004,
-            Difficulty=100,
+            Difficulty=75,
             spawnMaximum=2,
             minETanks=4
         ),
@@ -524,7 +524,7 @@ class EnemyManager:
             Speed=0x8000,
             Speed2=0x0018,
             SpecialGFX=0x0004,
-            Difficulty=120,
+            Difficulty=75,
             spawnMaximum=2,
             minETanks=4
         ),
@@ -534,7 +534,7 @@ class EnemyManager:
             Speed=0x8000,
             Speed2=0x0018,
             SpecialGFX=0x0004,
-            Difficulty=120,
+            Difficulty=75,
             spawnMaximum=2,
             minETanks=4
         ),
@@ -544,7 +544,7 @@ class EnemyManager:
             Speed=0x8000,
             Speed2=0x0018,
             SpecialGFX=0x0004,
-            Difficulty=80,
+            Difficulty=60,
             spawnMaximum=3
         ),
         'BATTA2Br': Enemy(
@@ -571,7 +571,7 @@ class EnemyManager:
             Speed=0x8000,
             Speed2=0x0018,
             SpecialGFX=0x0004,
-            Difficulty=100,
+            Difficulty=75,
             spawnMaximum=2,
             minETanks=4
         ),
@@ -581,7 +581,7 @@ class EnemyManager:
             Speed=0x8000,
             Speed2=0x0018,
             SpecialGFX=0x0004,
-            Difficulty=120,
+            Difficulty=75,
             spawnMaximum=2,
             minETanks=4
         ),
@@ -591,7 +591,7 @@ class EnemyManager:
             Speed=0x8000,
             Speed2=0x0018,
             SpecialGFX=0x0004,
-            Difficulty=120,
+            Difficulty=75,
             spawnMaximum=2,
             minETanks=4
         ),
@@ -627,7 +627,7 @@ class EnemyManager:
             Speed=0x8000,
             Speed2=0x0018,
             SpecialGFX=0x0004,
-            Difficulty=120,
+            Difficulty=75,
             spawnMaximum=2,
             minETanks=4
         ),
@@ -637,7 +637,7 @@ class EnemyManager:
             Speed=0x8000,
             Speed2=0x0018,
             SpecialGFX=0x0004,
-            Difficulty=120,
+            Difficulty=75,
             spawnMaximum=2,
             minETanks=4
         ),
@@ -647,27 +647,27 @@ class EnemyManager:
             Speed=0x8000,
             Speed2=0x0018,
             SpecialGFX=0x0004,
-            Difficulty=120,
+            Difficulty=75,
             spawnMaximum=2,
             minETanks=4
         )
     }
 
-    maxEnemyDifficulty = 0
+    maxEnemyDifficulty = 0  # Maximum enemy level allowed to spawn
     allowMetroids = False
     ETanks = 0
-    roomDetails = {
-        "knows": [],
-        "numbOfEnemies": []
-    }
+    roomDetails = {}    # Extra room details
+    difficulty = 'easy'
+    curOldEnemy = 0 # The current enemy ID we are replacing
 
     @staticmethod
-    def setDifficulty(level) -> None:
-        if level == 'hard':
+    def setDifficulty(difficulty) -> None:
+        EnemyManager.difficulty = difficulty
+        if difficulty == 'hard':
             EnemyManager.allowMetroids = True
-            EnemyManager.maxEnemyDifficulty = 80
-        elif level == 'normal':
             EnemyManager.maxEnemyDifficulty = 30
+        elif difficulty == 'normal':
+            EnemyManager.maxEnemyDifficulty = 15
 
     @staticmethod
     def setEnemyLvl(item) -> None:
@@ -699,23 +699,24 @@ class EnemyManager:
     def filterSprites(enmy, index) -> bool:
         if enmy.spawnMaximum < EnemyManager.roomDetails["numbOfEnemies"][index]:
             return False
-        elif enmy.minETanks > EnemyManager.ETanks:
+        elif EnemyManager.roomDetails["doorSpawn"] == EnemyManager.curOldEnemy and EnemyManager.ETanks < 3:
+            return 5 > enmy.Difficulty
+        elif EnemyManager.difficulty != 'hard' and enmy.minETanks > EnemyManager.ETanks:
             return False
         elif EnemyManager.allowMetroids == False and enmy.Name == 'Metroid':
             return False
-        elif EnemyManager.roomDetails["doorSpawn"] and EnemyManager.ETanks < 3:
-            return 5 > enmy.Difficulty
-        elif ["IceHellRun", "MainUpperNorfairHellRun", "LowerNorfairHellRun"] in EnemyManager.roomDetails["knows"]:
-            return 15 > enmy.Difficulty
         return EnemyManager.maxEnemyDifficulty >= enmy.Difficulty
 
     @staticmethod
     def checkExclusions(roomPtr, enemyID) -> bool:
+        EnemyManager.curOldEnemy = enemyID
         # Enemies we skip over
-        if (enemyID >= 0xD4FF and enemyID < 0xD5FF) or (
+        if (enemyID >= 0xD4FF and enemyID <= 0xD5FF) or (
             'CeilingDBoost' in EnemyManager.roomDetails["knows"] and roomPtr == 0x1A0389 and enemyID == 0xD27F
         ) or ('XrayDboost' in EnemyManager.roomDetails["knows"] and roomPtr == 0x1A0871) or (
             'NorfairReserveDBoost' in EnemyManager.roomDetails["knows"] and roomPtr == 0x1A09D9 and enemyID == 0xD63F
-        ) or ('CrocPBsDBoost' in EnemyManager.roomDetails["knows"] and roomPtr == 0x1A07DF):
-            return False;
-        return True;
+        ) or ('CrocPBsDBoost' in EnemyManager.roomDetails["knows"] and roomPtr == 0x1A07DF) or (
+            'HellRun' in EnemyManager.roomDetails["knows"]
+        ) or (EnemyManager.difficulty == 'easy'and EnemyManager.roomDetails["doorSpawn"] == enemyID):
+            return False
+        return True

@@ -1,7 +1,7 @@
 class RoomSpriteInfo:
     __slots__ = ('header', 'spriteData', 'numbOfEnemies', 'doorSpawn')
 
-    def __init__(self, header, spriteData, numbOfEnemies=[99, 99, 99, 99], doorSpawn=False) -> None:
+    def __init__(self, header, spriteData, numbOfEnemies=[99, 99, 99, 99], doorSpawn=0) -> None:
         self.header = header
         self.spriteData = spriteData
         self.numbOfEnemies=numbOfEnemies
@@ -9,7 +9,7 @@ class RoomSpriteInfo:
 
 SpritePathConnector = {
 "Landing Site": [
-  RoomSpriteInfo(1704325, 1083130, numbOfEnemies=[20, 99, 99, 99], doorSpawn=True),     # Pop  CR  792FD [Standard]
+  RoomSpriteInfo(1704325, 1083130, numbOfEnemies=[20, 99, 99, 99], doorSpawn=0xD87F),     # Pop  CR  792FD [Standard]
   RoomSpriteInfo(1704039, 1081953, numbOfEnemies=[11, 3, 2, 99]),       # Pop  CR  792FD [Awake]
   RoomSpriteInfo(1704061, 1082212, numbOfEnemies=[12, 99, 99, 99]),       # Pop  CR  79879 [Standard]
   RoomSpriteInfo(1704543, 1084295, numbOfEnemies=[3, 1, 99, 99]),        # Pop  CR  798E2 [Standard]
@@ -20,8 +20,8 @@ SpritePathConnector = {
   RoomSpriteInfo(1704403, 1083593, numbOfEnemies=[11, 99, 99, 99]),       # Pop  CR  796BA [Awake]
   RoomSpriteInfo(1704885, 1086246, numbOfEnemies=[3, 4, 99, 99]),        # Pop  BR  79E9F [Standard]
   RoomSpriteInfo(1704913, 1086380, numbOfEnemies=[2, 4, 99, 99]),        # Pop  BR  79E9F [Standard]
-  RoomSpriteInfo(1705365, 1088454, numbOfEnemies=[10, 5, 99, 99], doorSpawn=True),     # Pop  BR  79F11 [Standard]
-  RoomSpriteInfo(1704823, 1085837, numbOfEnemies=[2, 5, 99, 99], doorSpawn=True),      # Pop  BR  79F11 [Events 1]
+  RoomSpriteInfo(1705365, 1088454, numbOfEnemies=[10, 5, 99, 99], doorSpawn=0xEA7F),     # Pop  BR  79F11 [Standard]
+  RoomSpriteInfo(1704823, 1085837, numbOfEnemies=[2, 5, 99, 99], doorSpawn=0xEA7F),      # Pop  BR  79F11 [Events 1]
   RoomSpriteInfo(1704463, 1083925, numbOfEnemies=[10, 99, 99, 99]),       # Pop  CR  7975C [Standard]
   RoomSpriteInfo(1704079, 1082407, numbOfEnemies=[4, 1, 99, 99]),        # Pop  CR  7975C [Awake]
   RoomSpriteInfo(1703967, 1081557, numbOfEnemies=[3, 99, 99, 99]),        # Pop  CR  793AA [Standard]
@@ -31,9 +31,9 @@ SpritePathConnector = {
 "Blue Brinstar Elevator Bottom": [                                                  
   RoomSpriteInfo(1704885, 1086246, numbOfEnemies=[3, 4, 99, 99]),        # Pop  BR  79E9F [Standard]
   RoomSpriteInfo(1704913, 1086380, numbOfEnemies=[2, 4, 99, 99]),        # Pop  BR  79E9F [Standard]
-  RoomSpriteInfo(1705365, 1088454, numbOfEnemies=[10, 5, 99, 99]),       # Pop  BR  79F11 [Standard]
-  RoomSpriteInfo(1704823, 1085837, numbOfEnemies=[2, 5, 99, 99]),        # Pop  BR  79F11 [Events 1]
-  RoomSpriteInfo(1704841, 1085952, numbOfEnemies=[2, 2, 5, 99], doorSpawn=True),        # Pop  BR  79F64 [Events 1]
+  RoomSpriteInfo(1705365, 1088454, numbOfEnemies=[10, 5, 99, 99], doorSpawn=0xEA7F),       # Pop  BR  79F11 [Standard]
+  RoomSpriteInfo(1704823, 1085837, numbOfEnemies=[2, 5, 99, 99], doorSpawn=0xEA7F),        # Pop  BR  79F11 [Events 1]
+  RoomSpriteInfo(1704841, 1085952, numbOfEnemies=[2, 2, 5, 99], doorSpawn=0xEA7F),        # Pop  BR  79F64 [Events 1]
   RoomSpriteInfo(1704967, 1086725, numbOfEnemies=[3, 99, 99, 99]),        # Pop  BR  7A1AD [Standard]
 ],                                                                                  
 "Gauntlet Top": [                                                                   
@@ -131,6 +131,7 @@ SpritePathConnector = {
   RoomSpriteInfo(1705973, 1091630, numbOfEnemies=[5, 3, 3, 99]),        # Pop  NO  7B4AD [Standard]
   RoomSpriteInfo(1706269, 1093364, numbOfEnemies=[9, 99, 99, 99]),        # Pop  NO  7B4E5 [Standard]
   RoomSpriteInfo(1705725, 1090600, numbOfEnemies=[3, 99, 99, 99]),        # Pop  NO  7B585 [Standard]
+  RoomSpriteInfo(0x1A070F, 0x10A48B, numbOfEnemies=[6, 6, 99, 99]), # Pop	NO	7B2DA [Standard]
 ],                                                                                  
 "LN Above GT": [                                                                    
 ],                                                                                  
