@@ -227,7 +227,9 @@ class RomPatcher:
                 newSprite = EnemyManager.getRandomSprite(index)
                 replaceMap[oldEnemyID] = newSprite
                 self.romFile.writeWord(newSprite.Code, ptr)
-                self.romFile.writeWord(index, ptr+2) # palette data
+                # palette data
+                palette = newSprite.Palette if newSprite.Palette != 0 else [0, 1, 3, 7][index]
+                self.romFile.writeWord(palette, ptr+2) 
             ptr += 4
             index += 1
         return replaceMap
@@ -462,6 +464,8 @@ class RomPatcher:
                 stdPatches.append('nerfed_charge.ips')
             if self.settings["nerfedRainbowBeam"] == True:
                 stdPatches.append('nerfed_rainbow_beam.ips')
+            if self.settings["enemyRando"] != "off":
+                stdPatches.append("StokeFix.ips")
             if self.settings["boss"] == True or self.settings["area"] == True:
                 stdPatches += ["WS_Main_Open_Grey", "WS_Save_Active"]
                 plms.append('WS_Save_Blinking_Door')

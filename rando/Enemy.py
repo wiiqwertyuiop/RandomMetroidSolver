@@ -3,9 +3,9 @@ import random
 
 class Enemy:
     __slots__ = ('Name', 'Code', 'Speed', 'Speed2', 'SpecialGFX',
-                 'Special', 'Orientation', 'Difficulty', 'minETanks', 'spawnMaximum', 'Type')
+                 'Special', 'Orientation', 'Palette', 'Difficulty', 'minETanks', 'spawnMaximum', 'Type')
 
-    def __init__(self, Name, Code, Speed=0, Speed2=0, SpecialGFX=0, Special=0x2000, Orientation=0, Difficulty=0, minETanks=0, spawnMaximum = 99, Type="") -> None:
+    def __init__(self, Name, Code, Speed=0, Speed2=0, SpecialGFX=0, Special=0x2000, Orientation=0, Palette=0, Difficulty=0, minETanks=0, spawnMaximum = 99, Type="") -> None:
         self.Name = Name
         self.Code = Code
         self.Speed = Speed
@@ -13,6 +13,7 @@ class Enemy:
         self.SpecialGFX = SpecialGFX
         self.Special = Special
         self.Orientation = Orientation
+        self.Palette = Palette
         self.Difficulty = Difficulty
         self.minETanks = minETanks
         self.spawnMaximum = spawnMaximum
@@ -32,6 +33,7 @@ class EnemyManager:
             Name='Mini-Crocomire',
             Code=0xCEFF,
             Difficulty=5,
+            Palette=0x0002,
         ),
         'KAME': Enemy(
             Name='Tatori',
@@ -95,6 +97,7 @@ class EnemyManager:
         'RINKA': Enemy(
             Name='Rinka',
             Code=0xD23F,
+            Palette=0x0002,
         ),
         'RIO': Enemy(
             Name='Rio',
