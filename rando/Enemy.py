@@ -254,7 +254,7 @@ class EnemyManager:
             Speed=0x0002,
             Speed2=0x0006,
         ),
-        'BANG': Enemy(
+        """ 'BANG': Enemy(
             Name='Bang',
             Code=0xDB3F,
             Speed=0xBB4A,
@@ -262,7 +262,7 @@ class EnemyManager:
             SpecialGFX=0x0000,
             Special=0x2000,
             Orientation=0x0001,
-        ),
+        ), """
         'SKREE': Enemy(
             Name='Skree',
             Code=0xDB7F,
